@@ -96,7 +96,7 @@
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*kCynNIa5PscRl41V2scosA.png">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*BIsOCzJnc-SSU8fPXTiP1A.jpeg">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*NonRJ0uzzN9o1ygT6J421g.png">
-<meta property="og:updated_time" content="2016-05-15T06:58:55.000Z">
+<meta property="og:updated_time" content="2016-05-15T07:16:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 应用架构">
 <meta name="twitter:description" content="本文翻译自：https://medium.com/ribot-labs/android-application-architecture-8b6e34acda65
@@ -201,6 +201,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
 
       
     </ul>
@@ -283,7 +293,7 @@
 <p><code>我们的旅程从标准的Activities和AsyncTasks开始，到现代的由RxJava驱动的基于MVP的架构。</code><br><a id="more"></a>   </p>
 <p>Android开发生态进步的非常快。每周都会有新的工具被创建，库被更新，博客被发布，相应的讨论被给出。如果你去度假一个月，到你回来的时候，这可能就会有support库或者Play Services的新版本了。</p>
 <p>我在ribot team做android apps开发超过三年。在这段时间里，我们推动了Android apps的架构和技术的持续演变。通过这次特别的旅行，我们会给你解释我们的学习，填坑和在这些架构方面做出改变的理由。</p>
-<p>##The old times<br>追溯到2012年，那时我们的codebases常常是一个基本的结构。我们没有使用任何的网络库，AsyncTasks在那时还是我们的好朋友。下面这张图会恰当的展示给你架构是如何组织的。  </p>
+<h2 id="The-old-times"><a href="#The-old-times" class="headerlink" title="The old times"></a>The old times</h2><p>追溯到2012年，那时我们的codebases常常是一个基本的结构。我们没有使用任何的网络库，AsyncTasks在那时还是我们的好朋友。下面这张图会恰当的展示给你架构是如何组织的。  </p>
 <p><img src="https://cdn-images-1.medium.com/max/1600/1*TTtpcT4H80THBofnCtQ_Lw.png" alt="">  </p>
 <p>代码由两层构成：<code>data层</code>负责通过REST APIs和可持久的数据仓库取/存数据; <code>view层</code>的职责是在UI上处理和展示数据。  </p>
 <p><code>APIProvider</code>提供相应的方法使Activities和Fragments可以和REST API很容易的交互。这些方法使用URLConnection和AsyncTasks在一个单独的线程执行网络请求，通过回调将结果返回给Activities。</p>
@@ -542,7 +552,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-old-times"><span class="nav-number">1.</span> <span class="nav-text">The old times</span></a></li></ol></div>
             
           </div>
         </section>
