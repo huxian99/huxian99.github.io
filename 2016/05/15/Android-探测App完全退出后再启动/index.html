@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/05/15/Android-探测App完全退出后再启动/index.html">
 <meta property="og:site_name" content="弧线">
 <meta property="og:description" content="接到一个需求，需要在App完全退出后再次启动的时候做点什么事儿，很自然的就在想Android系统在kill掉我们的App时是不是提供了什么回调方法，所以开始查找相应的技术文档。">
-<meta property="og:updated_time" content="2016-05-15T09:56:50.000Z">
+<meta property="og:updated_time" content="2016-05-15T10:02:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 探测App完全退出后再启动">
 <meta name="twitter:description" content="接到一个需求，需要在App完全退出后再次启动的时候做点什么事儿，很自然的就在想Android系统在kill掉我们的App时是不是提供了什么回调方法，所以开始查找相应的技术文档。">
@@ -300,7 +300,7 @@
       
 
       
-        <p>接到一个需求，需要在<code>App完全退出后再次启动</code>的时候做点什么事儿，很自然的就在想Android系统在kill掉我们的App时是不是提供了什么回调方法，所以开始查找相应的技术文档。<br><a id="more"></a><br><a href="http://developer.android.com/reference/android/app/Activity.html#onDestroy(" target="_blank" rel="external">官方的文档</a>)里面有下面这一句话：  </p>
+        <p>接到一个需求，需要在<code>App完全退出后再次启动</code>的时候做点什么事儿，很自然的就在想Android系统在kill掉我们的App时是不是提供了什么回调方法，所以开始查找相应的技术文档。<br><a id="more"></a><br><a href="http://developer.android.com/reference/android/app/Activity.html#onDestroy(" target="_blank" rel="external">官方的文档</a>) 里面有下面这一句话：  </p>
 <blockquote>
 <p>There are situations where the system will simply kill the activity’s hosting process without calling this method (or any others) in it, so it should not be used to do things that are intended to remain around after the process goes away.</p>
 </blockquote>
