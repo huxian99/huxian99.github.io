@@ -96,7 +96,7 @@
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*kCynNIa5PscRl41V2scosA.png">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*BIsOCzJnc-SSU8fPXTiP1A.jpeg">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*NonRJ0uzzN9o1ygT6J421g.png">
-<meta property="og:updated_time" content="2016-05-15T07:16:05.000Z">
+<meta property="og:updated_time" content="2016-05-15T07:21:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 应用架构">
 <meta name="twitter:description" content="本文翻译自：https://medium.com/ribot-labs/android-application-architecture-8b6e34acda65
@@ -298,20 +298,19 @@
 <p>代码由两层构成：<code>data层</code>负责通过REST APIs和可持久的数据仓库取/存数据; <code>view层</code>的职责是在UI上处理和展示数据。  </p>
 <p><code>APIProvider</code>提供相应的方法使Activities和Fragments可以和REST API很容易的交互。这些方法使用URLConnection和AsyncTasks在一个单独的线程执行网络请求，通过回调将结果返回给Activities。</p>
 <p>相似地，<code>CacheProvider</code>包含了可以从SharedPreferences或者SQLite数据库取和存数据的方法。它也使用回调将结果传回给Activities。</p>
-<p>###The Problems<br>这种方法主要的问题就是view层有太多的职责。想象一个很平常的例子，应用需要加载一个博客帖子的列表，将数据缓存在SQLite数据库，并且最终在ListView上展示他们。Activity就需要干以下几个活：</p>
+<h3 id="The-Problems"><a href="#The-Problems" class="headerlink" title="The Problems"></a>The Problems</h3><p>这种方法主要的问题就是view层有太多的职责。想象一个很平常的例子，应用需要加载一个博客帖子的列表，将数据缓存在SQLite数据库，并且最终在ListView上展示他们。Activity就需要干以下几个活：</p>
 <ol>
 <li>在APIProvider中调用loadPosts(callback)方法</li>
 <li>等待APIProvider成功回调，然后在CacheProvider中调用savePosts(callback)方法。</li>
 <li>等待CacheProvider成功回调，然后在ListView上展示帖子。</li>
 <li>分别处理来自APIProvider和CacheProvider中潜在的errors回调。<br>这是一个非常简单的例子。在真实的场景中REST API可能不会返回view所需要的数据。因此，Activity在展示数据前不得不变换或者过滤数据。另一个平常的例子是，当loadPosts()方法需要一个参数，这个参数需要从其他什么地方取，例如，由Play Services SDK提供的一个email地址。SDK可能异步地使用回调来返回一个email，这就意味着我们现在有三层嵌套的回调。如果我们的需求越来越复杂，这个方法将会陷入到大名鼎鼎的回调地狱中。</li>
 </ol>
-<p>####In summary:</p>
-<ol>
+<h4 id="In-summary"><a href="#In-summary" class="headerlink" title="In summary:"></a>In summary:</h4><ol>
 <li>Activities和Fragments变得越来越大，很难去维护。</li>
 <li>太多嵌套的回调意味着代码是很糟糕的，需求的修改或是添加新需求会越来越痛苦。</li>
 <li>单元测试变得有挑战，如果有可能的话，因为大量的逻辑代码驻扎在Activities或Fragments中使得单元测试变得异常艰苦。</li>
 </ol>
-<p>##A new architecture driven by RxJava(由RxJava驱动的新架构)<br>上面的方法我们用了两年。在此期间，我们做了几次技术改变，慢慢地减轻了上面所描述的问题。例如，我们添加了几个helper类减少了Activities和Fragments中的代码，我们开始在APIProvider中使用<a href="http://developer.android.com/training/volley/index.html" target="_blank" rel="external">volley</a>。尽管有这些改变，但我们的应用代码测试起来还是很不友好。回调地狱的问题仍然频繁的发生。</p>
+<h2 id="A-new-architecture-driven-by-RxJava-由RxJava驱动的新架构"><a href="#A-new-architecture-driven-by-RxJava-由RxJava驱动的新架构" class="headerlink" title="A new architecture driven by RxJava(由RxJava驱动的新架构)"></a>A new architecture driven by RxJava(由RxJava驱动的新架构)</h2><p>上面的方法我们用了两年。在此期间，我们做了几次技术改变，慢慢地减轻了上面所描述的问题。例如，我们添加了几个helper类减少了Activities和Fragments中的代码，我们开始在APIProvider中使用<a href="http://developer.android.com/training/volley/index.html" target="_blank" rel="external">volley</a>。尽管有这些改变，但我们的应用代码测试起来还是很不友好。回调地狱的问题仍然频繁的发生。</p>
 <p>直到2014年我们开始了解<a href="http://reactivex.io/" target="_blank" rel="external">RxJava</a>。在尝试了几个例子之后，我们意识到这可能是解决嵌套回调问题最终的解决方案。如果你还不了解响应式编程，你可以阅读<a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754" target="_blank" rel="external">这篇介绍</a>。简单的说，RxJava允许你异步地管理数据流并且给了你很多的<a href="http://reactivex.io/documentation/operators.html" target="_blank" rel="external">操作符</a>，你可以应用这些操作符进行变换，过滤或者组合数据流。  </p>
 <p>考虑到前几年我们的痛苦经历，我们开始思考如何设计一个新app的架构。因此我们提出了下面这个。  </p>
 <p><img src="https://cdn-images-1.medium.com/max/1600/1*kCynNIa5PscRl41V2scosA.png" alt="">  </p>
@@ -348,18 +347,16 @@
 </ol>
 <p><code>view层</code>的组件如Activities或者Fragments会简单的调用这个方法并且订阅返回的Observable。一旦订阅完成，由Observable发射出的不同的帖子能直接添加到适配器上，在RecyclerView上显示。</p>
 <p>这个架构的最后一个元素是事件总线<code>event bus</code>。事件总线允许我们广播发生在数据层的事件，目的是在view层的多个组件订阅这些事件。例如，当Observable完成时，在DataManager的signOut()方法中能post出一个事件，为的是订阅这个事件的多个Activities能改变他们在登出状态时的UI。</p>
-<p>###Why was this approach better?</p>
-<ol>
+<h3 id="Why-was-this-approach-better"><a href="#Why-was-this-approach-better" class="headerlink" title="Why was this approach better?"></a>Why was this approach better?</h3><ol>
 <li>RxJava的Observables和操作符移除了嵌套的回调。<br><img src="https://cdn-images-1.medium.com/max/1600/1*BIsOCzJnc-SSU8fPXTiP1A.jpeg" alt="">  </li>
 <li>DataManager接管了以前view层的部分职责。因此它使得Activities和Fragments更轻一些。  </li>
 <li>把代码从Activities和Fragments中移动到DataManager和帮助类中意味着写单元测试变得更加容易。<br>4。清楚的职责划分，有DataManager作为和数据层交互唯一的点，使得这个架构测试变得更加友好。帮助类或者DataManager能很容易的被mock掉。  </li>
 </ol>
-<p>###What problems did we still have?</p>
-<ol>
+<h3 id="What-problems-did-we-still-have"><a href="#What-problems-did-we-still-have" class="headerlink" title="What problems did we still have?"></a>What problems did we still have?</h3><ol>
 <li>对于大且复杂的项目来说，DataManager会变得越来越臃肿，难以维护。</li>
 <li>虽然view层的组件，比如Activities和Fragments变得更轻，但是他们仍然需要去处理相当多的逻辑，管理RxJava的订阅，分析错误等等。</li>
 </ol>
-<p>##Integrating Model View Presenter<br>在过去的一年里，像MVP或MVVM这几种架构模式在Android社区变得越来越流行。在项目[link]和文章[link]里探索过这些模式后，我们发现MVP非常有价值。因为我们当前的架构是被分成两层(view层和数据层)，添加了MVP后感觉自然多了。我们添加了一个新的presenters层，把view的部分代码搬到了presenters中。  </p>
+<h2 id="Integrating-Model-View-Presenter"><a href="#Integrating-Model-View-Presenter" class="headerlink" title="Integrating Model View Presenter"></a>Integrating Model View Presenter</h2><p>在过去的一年里，像MVP或MVVM这几种架构模式在Android社区变得越来越流行。在项目[link]和文章[link]里探索过这些模式后，我们发现MVP非常有价值。因为我们当前的架构是被分成两层(view层和数据层)，添加了MVP后感觉自然多了。我们添加了一个新的presenters层，把view的部分代码搬到了presenters中。  </p>
 <p><img src="https://cdn-images-1.medium.com/max/1600/1*NonRJ0uzzN9o1ygT6J421g.png" alt="">  </p>
 <p>数据层保留但是现在被叫做<code>model</code>，为的是和模式的命名一致。</p>
 <p><code>Presenters</code>负责从model中加载数据并且负责当结果返回时调用view中正确的方法。他们订阅由data manager返回的Observables。因此，他们不得不处理像<a href="http://reactivex.io/documentation/scheduler.html" target="_blank" rel="external">schedulers</a>和<a href="http://reactivex.io/RxJava/javadoc/rx/Subscription.html" target="_blank" rel="external">subscriptions</a>这样的事情。此外，他们分析错误的代码或者根据需要对数据流应用额外的操作符。例如，如果我们需要过滤一些数据，相同的过滤是不可能被其他地方重用的，那么在presenter中实现可能比在data manager中实现更有意义。</p>
@@ -393,13 +390,12 @@
 <blockquote>
 <p>如果你想要看到一个完整的基于MVP架构的例子，你能check out我们的<a href="https://github.com/ribot/android-boilerplate" target="_blank" rel="external">项目</a>。你也可以读更多的<a href="https://github.com/ribot/android-guidelines/blob/master/architecture_guidelines/android_architecture.md" target="_blank" rel="external">相关文章</a>。  </p>
 </blockquote>
-<p>###Why is this approach better?</p>
-<ol>
+<h3 id="Why-is-this-approach-better"><a href="#Why-is-this-approach-better" class="headerlink" title="Why is this approach better?"></a>Why is this approach better?</h3><ol>
 <li>Activities和Fragments变的更轻。他们仅仅负责初始化/更新UI，处理用户的事件。因此，他们更容易维护。</li>
 <li>我们现在很容易地对presenters写单元测试，mock掉view层。在这之前，这些代码是view层的一部分导致我们不能单测它。整个架构对测试来说非常友好。</li>
 <li>如果data manager变得很臃肿，我们可以通过把一些代码移动到presenters中来缓和问题。</li>
 </ol>
-<p>###What problems do we still have?<br>当codebase变得非常大且复杂时，单一的data manager仍然是一个问题。我们还没有到这一步，这可能是一个真正的问题但我们已经意识到它可能发生。</p>
+<h3 id="What-problems-do-we-still-have"><a href="#What-problems-do-we-still-have" class="headerlink" title="What problems do we still have?"></a>What problems do we still have?</h3><p>当codebase变得非常大且复杂时，单一的data manager仍然是一个问题。我们还没有到这一步，这可能是一个真正的问题但我们已经意识到它可能发生。</p>
 <p>提一下这不是完美的架构。事实上，认为有独一无二且完美的架构解决我们未来所有的问题可能是天真的。Android生态还会快速的进化，我们不得不保持探索，阅读和体验，为的是我们能找到更好的方法去继续构建精美的Android apps。</p>
 <p>我希望你能享受这篇文章，发现它是有用的。如果是这样的话，不要忘记点击一下推荐按钮。此外，我很期待可以听听你的想法。</p>
 
@@ -552,7 +548,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-old-times"><span class="nav-number">1.</span> <span class="nav-text">The old times</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-old-times"><span class="nav-number">1.</span> <span class="nav-text">The old times</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Problems"><span class="nav-number">1.1.</span> <span class="nav-text">The Problems</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#In-summary"><span class="nav-number">1.1.1.</span> <span class="nav-text">In summary:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-new-architecture-driven-by-RxJava-由RxJava驱动的新架构"><span class="nav-number">2.</span> <span class="nav-text">A new architecture driven by RxJava(由RxJava驱动的新架构)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-was-this-approach-better"><span class="nav-number">2.1.</span> <span class="nav-text">Why was this approach better?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-problems-did-we-still-have"><span class="nav-number">2.2.</span> <span class="nav-text">What problems did we still have?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Integrating-Model-View-Presenter"><span class="nav-number">3.</span> <span class="nav-text">Integrating Model View Presenter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-is-this-approach-better"><span class="nav-number">3.1.</span> <span class="nav-text">Why is this approach better?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-problems-do-we-still-have"><span class="nav-number">3.2.</span> <span class="nav-text">What problems do we still have?</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

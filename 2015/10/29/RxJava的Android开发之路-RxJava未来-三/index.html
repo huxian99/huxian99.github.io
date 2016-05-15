@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://yoursite.com/2015/10/29/RxJava的Android开发之路-RxJava未来-三/index.html">
 <meta property="og:site_name" content="弧线">
 <meta property="og:description" content="本系列文章主要翻译自O’Reilly出版的RxJava for Android App Development一书。第三章 The Future of RxJava for Android Development">
-<meta property="og:updated_time" content="2015-10-29T12:45:39.000Z">
+<meta property="og:updated_time" content="2016-05-15T07:22:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RxJava的Android开发之路 RxJava未来(三)">
 <meta name="twitter:description" content="本系列文章主要翻译自O’Reilly出版的RxJava for Android App Development一书。第三章 The Future of RxJava for Android Development">
@@ -282,18 +282,18 @@
 
       
         <p>本系列文章主要翻译自O’Reilly出版的RxJava for Android App Development一书。<br>第三章 The Future of RxJava for Android Development<br><a id="more"></a><br>关于RxJava还有很多我们没有覆盖到。此外，我们只做了很简单的RxJava研究，RxJava能帮我们写更好的Android应用。在最后的这部分里，我简短地给读者提供一些进一步阅读的链接并且我说一些关于当前项目里面利用RxJava特性帮助我们写出更棒的Android应用的小例子。</p>
-<p>##Further Reading for RxJava<br>Reactivie Extensions网站有<a href="http://reactivex.io/tutorials.html" target="_blank" rel="external">一个很棒的教程和文章清单</a>。然而，有一些文章我特别的想要指出。RxJava中有一些重要的概念我没有提到，阅读这些文章将要帮助你学习这些概念。</p>
+<h2 id="Further-Reading-for-RxJava"><a href="#Further-Reading-for-RxJava" class="headerlink" title="Further Reading for RxJava"></a>Further Reading for RxJava</h2><p>Reactivie Extensions网站有<a href="http://reactivex.io/tutorials.html" target="_blank" rel="external">一个很棒的教程和文章清单</a>。然而，有一些文章我特别的想要指出。RxJava中有一些重要的概念我没有提到，阅读这些文章将要帮助你学习这些概念。</p>
 <p>RxJs文档的<a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md#cold-vs-hot-observables" target="_blank" rel="external">The “Cold vs. Hot Observables” </a>部分是我见过的写的最好的热和冷Observables的介绍。理解热和冷Observables的不同是非常重要的，尤其是如果你想要有多个Observable异步数据流的消费者。Dan Lew的<a href="https://www.youtube.com/watch?v=Jt-_oVQVZlQ" target="_blank" rel="external">“Reactive Extensions: Beyond the Basics” video</a>在热和冷Observables的区别上也有一些非常有帮助的信息，为什么这种区别很重要，什么操作符能把热的Observables转换成冷的Observables，什么操作符能把冷的转换成热的。关于热和冷Observables的讨论会在视频的16:30-26:00之间播出。</p>
 <p>当使用RxJava时，Observable发射数据可能比消费的快，这被称为”back pressure”。当不受管理时，back pressure能导致crashes。 RxJava wiki上有一个<a href="https://github.com/ReactiveX/RxJava/wiki/Backpressure" target="_blank" rel="external">关于back pressure帮助页并且提供了处理它的策略</a>。</p>
 <p>RxJava的Subjects是另一个我没有覆盖到的很重要的部分。Reactive Extensions网站有<a href="http://reactivex.io/documentation/subject.html" target="_blank" rel="external">一个很棒的Subjects综述</a>，Dave Sexton有<a href="http://davesexton.com/blog/post/To-Use-Subject-Or-Not-To-Use-Subject.aspx" target="_blank" rel="external">一篇恰当的使用Subjects很棒的文章</a>。</p>
-<p>##Future Directions for Android App Development with RxJava<br>如果你对如何在你的Android应用中使用RxJava感兴趣，这里有几个有意思的开源项目是值得一读的。</p>
+<h2 id="Future-Directions-for-Android-App-Development-with-RxJava"><a href="#Future-Directions-for-Android-App-Development-with-RxJava" class="headerlink" title="Future Directions for Android App Development with RxJava"></a>Future Directions for Android App Development with RxJava</h2><p>如果你对如何在你的Android应用中使用RxJava感兴趣，这里有几个有意思的开源项目是值得一读的。</p>
 <p>第一个是我已经简略地提到过的项目:  <a href="https://github.com/ReactiveX/RxAndroid" target="_blank" rel="external">RxAndroid</a>。这个库提供了Scheduler线程调度器与observeOn操作符一起使用，目的是让Observers能在UI线程上消费数据。根据它git仓库上的readme，RxAndroid试图提供”最小的类使得RxJava在Android应用中编写响应式组件变得容易”。因为这个项目有一定的局限性，我期待着有更多有趣的工作，在这里我列出一些其他用RxJava开发Android应用的项目。</p>
 <p>第二个项目起初是RxAndroid的一个分支，他叫做，<a href="https://github.com/JakeWharton/RxBinding" target="_blank" rel="external">RxBinding</a>。这个项目创建的Observables发射UI相关的事件流给Listeners，被各种各样的View和Widget类注册的Listeners。这个项目由Jake Wharton主导</p>
 <p><a href="https://github.com/trello/RxLifecycle" target="_blank" rel="external">RxLifecycle</a>是帮助Android开发者在Activitys中使用RxJava，避免泄露Activitys的一个项目。这个库由Dan Lew和Trello其他的开发者开发和维护。</p>
 <p><a href="https://github.com/square/sqlbrite" target="_blank" rel="external">Sqlbrite</a>的目的正如它在GitHub上描述的那样: SQLiteOpenHelper的一个轻量级封装，介绍了SQL操作的响应流语义。</p>
 <p>这个库被Square的开发者支持。通过收听Jake Wharton在<a href="http://fragmentedpodcast.com/episodes/7/" target="_blank" rel="external">碎片化播客的第七集</a>对Don Felker和Kaushik Goupal的采访, 你能学习到更多这个库的历史。</p>
-<p>###About the Author<br>K. Matthew Dupree曾经梦想成为哲学教授，现在转行到想成为科技型企业家。他也是一个对Android开发特别感兴趣的手机软件工程师。他的博客<a href="http://www.philosophicalhacker.com/" target="_blank" rel="external">philosophicalhacker.com</a>。他最近也创立了机器人杂志，试图发表经过同行审阅过的Android开发文章。</p>
-<p>###其他<br>下表展示了RxJava中可用的调度器类型：  </p>
+<h3 id="About-the-Author"><a href="#About-the-Author" class="headerlink" title="About the Author"></a>About the Author</h3><p>K. Matthew Dupree曾经梦想成为哲学教授，现在转行到想成为科技型企业家。他也是一个对Android开发特别感兴趣的手机软件工程师。他的博客<a href="http://www.philosophicalhacker.com/" target="_blank" rel="external">philosophicalhacker.com</a>。他最近也创立了机器人杂志，试图发表经过同行审阅过的Android开发文章。</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>下表展示了RxJava中可用的调度器类型：  </p>
 <table>
 <thead>
 <tr>
@@ -482,7 +482,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Further-Reading-for-RxJava"><span class="nav-number">1.</span> <span class="nav-text">Further Reading for RxJava</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Future-Directions-for-Android-App-Development-with-RxJava"><span class="nav-number">2.</span> <span class="nav-text">Future Directions for Android App Development with RxJava</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#About-the-Author"><span class="nav-number">2.1.</span> <span class="nav-text">About the Author</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">2.2.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
