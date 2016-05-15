@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="今天遇到一个问题，测试妹子想用微信登录app，但是点击微信的小图标却怎么也没有反应，于是提了bug给我。我马上查了查相应的代码，大致的逻辑是根据sdk提供的isWXAppInstalled()方法来做判断，如果用户安装了微信就跳转微信登录界面，如果用户没有安装就给一个提示。这明明没什么问题啊，于是找到了出问题的三星手机。发现原来是isWXAppInstalled()方法返回了true，导致点击后没">
+<meta name="description" content="Activity.onDestory;There are situations where the system will simply kill the activity’s hosting process without calling this method (or any others) in it, so it should not be used to do things that a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android 当用户停用app之后">
-<meta property="og:url" content="http://yoursite.com/2015/11/05/Android-当用户停用app之后/index.html">
+<meta property="og:title" content="Android 探测App完全退出后再启动">
+<meta property="og:url" content="http://yoursite.com/2016/05/15/Android-探测App完全退出后再启动/index.html">
 <meta property="og:site_name" content="弧线">
-<meta property="og:description" content="今天遇到一个问题，测试妹子想用微信登录app，但是点击微信的小图标却怎么也没有反应，于是提了bug给我。我马上查了查相应的代码，大致的逻辑是根据sdk提供的isWXAppInstalled()方法来做判断，如果用户安装了微信就跳转微信登录界面，如果用户没有安装就给一个提示。这明明没什么问题啊，于是找到了出问题的三星手机。发现原来是isWXAppInstalled()方法返回了true，导致点击后没">
-<meta property="og:updated_time" content="2015-11-05T13:23:42.000Z">
+<meta property="og:description" content="Activity.onDestory;There are situations where the system will simply kill the activity’s hosting process without calling this method (or any others) in it, so it should not be used to do things that a">
+<meta property="og:updated_time" content="2016-05-15T07:56:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android 当用户停用app之后">
-<meta name="twitter:description" content="今天遇到一个问题，测试妹子想用微信登录app，但是点击微信的小图标却怎么也没有反应，于是提了bug给我。我马上查了查相应的代码，大致的逻辑是根据sdk提供的isWXAppInstalled()方法来做判断，如果用户安装了微信就跳转微信登录界面，如果用户没有安装就给一个提示。这明明没什么问题啊，于是找到了出问题的三星手机。发现原来是isWXAppInstalled()方法返回了true，导致点击后没">
+<meta name="twitter:title" content="Android 探测App完全退出后再启动">
+<meta name="twitter:description" content="Activity.onDestory;There are situations where the system will simply kill the activity’s hosting process without calling this method (or any others) in it, so it should not be used to do things that a">
 
 
 
@@ -111,7 +111,7 @@
   };
 </script>
 
-  <title> Android 当用户停用app之后 | 弧线 </title>
+  <title> Android 探测App完全退出后再启动 | 弧线 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -241,7 +241,7 @@
             
             
               
-                Android 当用户停用app之后
+                Android 探测App完全退出后再启动
               
             
           </h1>
@@ -253,11 +253,30 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-05T21:07:17+08:00" content="2015-11-05">
-              2015-11-05
+            <time itemprop="dateCreated" datetime="2016-05-15T15:54:32+08:00" content="2016-05-15">
+              2016-05-15
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -281,21 +300,14 @@
       
 
       
-        <p>今天遇到一个问题，测试妹子想用微信登录app，但是点击微信的小图标却怎么也没有反应，于是提了bug给我。我马上查了查相应的代码，大致的逻辑是根据sdk提供的isWXAppInstalled()方法来做判断，如果用户安装了微信就跳转微信登录界面，如果用户没有安装就给一个提示。这明明没什么问题啊，于是找到了出问题的三星手机。发现原来是isWXAppInstalled()方法返回了true，导致点击后没有任何反应。测试妹子跟我说这台s4预装了微信，但被她停用了，会不会是这个问题！后来，后来就有了如下的代码:<br><a id="more"></a>  </p>
-<pre><code class="java"><span class="keyword">try</span> {
-   PackageManager manager = activity.getPackageManager();
-   PackageInfo packageInfo = manager.getPackageInfo(<span class="string">"com.tencent.mm"</span>, <span class="number">0</span>); <span class="comment">// 1</span>
-   ApplicationInfo applicationInfo = packageInfo.applicationInfo;  
-   <span class="keyword">boolean</span> enabled = applicationInfo.enabled;  <span class="comment">// 2</span>
-   <span class="keyword">if</span> (!enabled) {
-      Toast.makeText(activity, <span class="string">"balabala"</span>, Toast.LENGTH_SHORT).show();
-      <span class="keyword">return</span>;
-   }
-} <span class="keyword">catch</span> (PackageManager.NameNotFoundException e) {
-   e.printStackTrace();
-}
-</code></pre>
-<p>1) 先通过adb命令找出微信的packageName获取相应的PackageInfo<br>2) 通过applicationInfo.enabled来判断应用是否可用  </p>
+        <p>Activity.onDestory;<br>There are situations where the system will simply kill the activity’s hosting process without calling this method (or any others) in it, so it should not be used to do things that are intended to remain around after the process goes away.<br>文档说没有任何回调<br><a id="more"></a>   </p>
+<h3 id="service-onTaskRemoved"><a href="#service-onTaskRemoved" class="headerlink" title="service onTaskRemoved"></a>service onTaskRemoved</h3><p>public void onTaskRemoved (Intent rootIntent)</p>
+<p>Added in API level 14<br>This is called if the service is currently running and the user has removed a task that comes from the service’s application. If you have set ServiceInfo.FLAG_STOP_WITH_TASK then you will not receive this callback; instead, the service will simply be stopped.</p>
+<h3 id="ScreenOffReceiver"><a href="#ScreenOffReceiver" class="headerlink" title="ScreenOffReceiver"></a>ScreenOffReceiver</h3><p>registerReceiver(screenOffReceiver, new IntentFilter(“android.intent.action.SCREEN_OFF”));</p>
+<h3 id="android-os-Process-myPid"><a href="#android-os-Process-myPid" class="headerlink" title="android.os.Process.myPid()"></a>android.os.Process.myPid()</h3><p>int previousProcessID = mSharedPreferencesUtils.getInt(SharedPreferencesUtils.APP_PROCESS_ID);</p>
+<p>int currentProcessID = android.os.Process.myPid();</p>
+<p>if ((previousProcessID == currentProcessID)) {<br>// This ensures application not killed yet either by clearing recent or anyway<br>} else {<br>// This ensures application killed either by clearing recent or by anyother means<br>}</p>
+<p>SharedPreferencesUtils.getInstance().putInt(SharedPreferencesUtils.APP_PROCESS_ID, android.os.Process.myPid());</p>
 
       
     </div>
@@ -326,17 +338,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/10/29/RxJava的Android开发之路-RxJava未来-三/" rel="next" title="RxJava的Android开发之路 RxJava未来(三)">
-                <i class="fa fa-chevron-left"></i> RxJava的Android开发之路 RxJava未来(三)
+              <a href="/2015/12/07/Android-应用架构/" rel="next" title="Android 应用架构">
+                <i class="fa fa-chevron-left"></i> Android 应用架构
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/07/Android-应用架构/" rel="prev" title="Android 应用架构">
-                Android 应用架构 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -450,7 +458,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#service-onTaskRemoved"><span class="nav-number">1.</span> <span class="nav-text">service onTaskRemoved</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ScreenOffReceiver"><span class="nav-number">2.</span> <span class="nav-text">ScreenOffReceiver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#android-os-Process-myPid"><span class="nav-number">3.</span> <span class="nav-text">android.os.Process.myPid()</span></a></li></ol></div>
             
           </div>
         </section>
