@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="Activity.onDestory;There are situations where the system will simply kill the activity’s hosting process without calling this method (or any others) in it, so it should not be used to do things that a">
+<meta name="description" content="接到一个需求，需要在App完全退出后再次启动的时候做点什么事儿，很自然的就在想Android系统在kill掉我们的App时是不是提供了什么回调方法，所以开始查找相应的技术文档。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 探测App完全退出后再启动">
 <meta property="og:url" content="http://yoursite.com/2016/05/15/Android-探测App完全退出后再启动/index.html">
 <meta property="og:site_name" content="弧线">
-<meta property="og:description" content="Activity.onDestory;There are situations where the system will simply kill the activity’s hosting process without calling this method (or any others) in it, so it should not be used to do things that a">
-<meta property="og:updated_time" content="2016-05-15T07:56:28.000Z">
+<meta property="og:description" content="接到一个需求，需要在App完全退出后再次启动的时候做点什么事儿，很自然的就在想Android系统在kill掉我们的App时是不是提供了什么回调方法，所以开始查找相应的技术文档。">
+<meta property="og:updated_time" content="2016-05-15T09:56:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 探测App完全退出后再启动">
-<meta name="twitter:description" content="Activity.onDestory;There are situations where the system will simply kill the activity’s hosting process without calling this method (or any others) in it, so it should not be used to do things that a">
+<meta name="twitter:description" content="接到一个需求，需要在App完全退出后再次启动的时候做点什么事儿，很自然的就在想Android系统在kill掉我们的App时是不是提供了什么回调方法，所以开始查找相应的技术文档。">
 
 
 
@@ -300,14 +300,23 @@
       
 
       
-        <p>Activity.onDestory;<br>There are situations where the system will simply kill the activity’s hosting process without calling this method (or any others) in it, so it should not be used to do things that are intended to remain around after the process goes away.<br>文档说没有任何回调<br><a id="more"></a>   </p>
-<h3 id="service-onTaskRemoved"><a href="#service-onTaskRemoved" class="headerlink" title="service onTaskRemoved"></a>service onTaskRemoved</h3><p>public void onTaskRemoved (Intent rootIntent)</p>
-<p>Added in API level 14<br>This is called if the service is currently running and the user has removed a task that comes from the service’s application. If you have set ServiceInfo.FLAG_STOP_WITH_TASK then you will not receive this callback; instead, the service will simply be stopped.</p>
-<h3 id="ScreenOffReceiver"><a href="#ScreenOffReceiver" class="headerlink" title="ScreenOffReceiver"></a>ScreenOffReceiver</h3><p>registerReceiver(screenOffReceiver, new IntentFilter(“android.intent.action.SCREEN_OFF”));</p>
-<h3 id="android-os-Process-myPid"><a href="#android-os-Process-myPid" class="headerlink" title="android.os.Process.myPid()"></a>android.os.Process.myPid()</h3><p>int previousProcessID = mSharedPreferencesUtils.getInt(SharedPreferencesUtils.APP_PROCESS_ID);</p>
-<p>int currentProcessID = android.os.Process.myPid();</p>
-<p>if ((previousProcessID == currentProcessID)) {<br>// This ensures application not killed yet either by clearing recent or anyway<br>} else {<br>// This ensures application killed either by clearing recent or by anyother means<br>}</p>
-<p>SharedPreferencesUtils.getInstance().putInt(SharedPreferencesUtils.APP_PROCESS_ID, android.os.Process.myPid());</p>
+        <p>接到一个需求，需要在<code>App完全退出后再次启动</code>的时候做点什么事儿，很自然的就在想Android系统在kill掉我们的App时是不是提供了什么回调方法，所以开始查找相应的技术文档。<br><a id="more"></a><br><a href="http://developer.android.com/reference/android/app/Activity.html#onDestroy(" target="_blank" rel="external">官方的文档</a>)里面有下面这一句话：  </p>
+<blockquote>
+<p>There are situations where the system will simply kill the activity’s hosting process without calling this method (or any others) in it, so it should not be used to do things that are intended to remain around after the process goes away.</p>
+</blockquote>
+<p>大致的意思就是系统没有提供任何的回调方法。系统不提供相应的回调方法那只能看看有没有什么别的办法了。</p>
+<h3 id="Service-onTaskRemoved"><a href="#Service-onTaskRemoved" class="headerlink" title="Service onTaskRemoved"></a>Service onTaskRemoved</h3><p><a href="http://developer.android.com/reference/android/app/Service.html" target="_blank" rel="external">官方的文档</a>介绍如下: </p>
+<blockquote>
+<p>This is called if the service is currently running and the user has removed a task that comes from the service’s application. If you have set ServiceInfo.FLAG_STOP_WITH_TASK then you will not receive this callback; instead, the service will simply be stopped.</p>
+</blockquote>
+<p>当用户从列表里面移除后台的App时，onTaskRemoved方法会被调用。如果App原来就有一个Service，并且其生命周期与应用同步，那么可以重写这个方法来完成任务；可是如果App本身没有Service，难道要为了实现这个目标而多一些Service嚒，显然也不太合理。</p>
+<h3 id="SCREEN-OFF广播"><a href="#SCREEN-OFF广播" class="headerlink" title="SCREEN_OFF广播"></a>SCREEN_OFF广播</h3><p><a href="http://developer.android.com/reference/android/content/Intent.html#ACTION_SCREEN_OFF" target="_blank" rel="external">官方的文档</a>里面有下面这句话：</p>
+<blockquote>
+<p>Broadcast Action: Sent when the device goes to sleep and becomes non-interactive.<br>设备睡眠并且不可交互时发送该广播。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">registerReceiver(yourReceiver, new IntentFilter(&quot;android.intent.action.SCREEN_OFF&quot;));</span><br></pre></td></tr></table></figure>
+<p>但是这种情况下并不能保证系统会kill掉我们的App，所以继续寻找解决方案。</p>
+<h3 id="android-os-Process-myPid"><a href="#android-os-Process-myPid" class="headerlink" title="android.os.Process.myPid()"></a>android.os.Process.myPid()</h3><p>通过存储myPid的方式来实现。<br>具体实现代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> previousPid = sharedPreferencesUtils.getInt(SharedPreferencesUtils.APP_PROCESS_ID);</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> currentPid = android.os.Process.myPid();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ((previousPid != currentPid)) &#123;</span><br><span class="line">	<span class="comment">// App被系统kill掉重新启动</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SharedPreferencesUtils.getInstance().putInt(SharedPreferencesUtils.APP_PROCESS_ID, android.os.Process.myPid());</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -458,7 +467,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#service-onTaskRemoved"><span class="nav-number">1.</span> <span class="nav-text">service onTaskRemoved</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ScreenOffReceiver"><span class="nav-number">2.</span> <span class="nav-text">ScreenOffReceiver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#android-os-Process-myPid"><span class="nav-number">3.</span> <span class="nav-text">android.os.Process.myPid()</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Service-onTaskRemoved"><span class="nav-number">1.</span> <span class="nav-text">Service onTaskRemoved</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SCREEN-OFF广播"><span class="nav-number">2.</span> <span class="nav-text">SCREEN_OFF广播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#android-os-Process-myPid"><span class="nav-number">3.</span> <span class="nav-text">android.os.Process.myPid()</span></a></li></ol></div>
             
           </div>
         </section>

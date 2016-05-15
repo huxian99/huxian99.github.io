@@ -305,7 +305,7 @@
 
       
         
-          <p>Activity.onDestory;<br>There are situations where the system will simply kill the activity’s hosting process without calling this method (or any others) in it, so it should not be used to do things that are intended to remain around after the process goes away.<br>文档说没有任何回调<br>
+          <p>接到一个需求，需要在<code>App完全退出后再次启动</code>的时候做点什么事儿，很自然的就在想Android系统在kill掉我们的App时是不是提供了什么回调方法，所以开始查找相应的技术文档。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/05/15/Android-探测App完全退出后再启动/#more" rel="contents">
               阅读全文 &raquo;
