@@ -88,7 +88,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式之外观模式(Facade)">
 <meta property="og:url" content="http://yoursite.com/2015/06/08/设计模式之外观模式-Facade/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="弧线">
 <meta property="og:description" content="###外观模式定义：提供了一个统一的接口，用来访问子系统中的一群接口。外观定义了一个高层接口，让子系统更容易使用。">
 <meta property="og:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/Facade.png">
 <meta property="og:updated_time" content="2015-06-08T13:30:44.000Z">
@@ -108,15 +108,15 @@
     motion: true,
     duoshuo: {
       userId: 0,
-      author: 'Author'
+      author: '博主'
     }
   };
 </script>
 
-  <title> 设计模式之外观模式(Facade) | Hexo </title>
+  <title> 设计模式之外观模式(Facade) | 弧线 </title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -144,7 +144,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Hexo</span>
+      <span class="site-title">弧线</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -171,7 +171,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            首页
           </a>
         </li>
       
@@ -181,7 +181,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            归档
           </a>
         </li>
       
@@ -191,7 +191,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            Tags
+            标签
           </a>
         </li>
       
@@ -244,7 +244,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <span class="post-meta-item-text">发表于</span>
             <time itemprop="dateCreated" datetime="2015-06-08T21:06:46+08:00" content="2015-06-08">
               2015-06-08
             </time>
@@ -256,7 +256,7 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">in</span>
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                   <a href="/categories/设计模式/" itemprop="url" rel="index">
@@ -394,10 +394,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Inhaltsverzeichnis
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            Übersicht
+            站点概览
           </li>
         </ul>
       
@@ -406,15 +406,15 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
-               alt="John Doe" />
-          <p class="site-author-name" itemprop="name">John Doe</p>
-          <p class="site-description motion-element" itemprop="description"></p>
+               alt="huxian99" />
+          <p class="site-author-name" itemprop="name">huxian99</p>
+          <p class="site-description motion-element" itemprop="description">弧线，期待多一度精彩</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">29</span>
-              <span class="site-state-item-name">Artikel</span>
+              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
@@ -422,7 +422,7 @@
             <div class="site-state-item site-state-categories">
               
                 <span class="site-state-item-count">4</span>
-                <span class="site-state-item-name">Kategorien</span>
+                <span class="site-state-item-name">分类</span>
               
             </div>
           
@@ -431,7 +431,7 @@
             <div class="site-state-item site-state-tags">
               <a href="/tags">
                 <span class="site-state-item-count">11</span>
-                <span class="site-state-item-name">Tags</span>
+                <span class="site-state-item-name">标签</span>
               </a>
             </div>
           
@@ -459,7 +459,7 @@
               
             
             
-              <p class="post-toc-empty">Dieser Artikel hat kein Inhaltsverzeichnis</p>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
@@ -482,15 +482,15 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">huxian99</span>
 </div>
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="http://hexo.io">Hexo</a>
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
-  Theme -
+  主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Muse
   </a>
