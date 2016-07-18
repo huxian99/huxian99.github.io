@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>设计模式之策略模式(Strategy) | 弧线</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="###策略模式定义：定义了算法族，分别封装起来，让它们之间可以相互替换，此模式让算法的变化独立于使用算法的客户。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之策略模式(Strategy)">
+<meta property="og:url" content="http://yoursite.com/2015/04/26/设计模式之策略模式-Strategy/index.html">
+<meta property="og:site_name" content="弧线">
+<meta property="og:description" content="###策略模式定义：定义了算法族，分别封装起来，让它们之间可以相互替换，此模式让算法的变化独立于使用算法的客户。">
+<meta property="og:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/Strategy.png">
+<meta property="og:updated_time" content="2015-06-06T06:20:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式之策略模式(Strategy)">
+<meta name="twitter:description" content="###策略模式定义：定义了算法族，分别封装起来，让它们之间可以相互替换，此模式让算法的变化独立于使用算法的客户。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/Strategy.png">
+  
+    <link rel="alternate" href="/atom.xml" title="弧线" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">弧线</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-设计模式之策略模式-Strategy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/26/设计模式之策略模式-Strategy/" class="article-date">
+  <time datetime="2015-04-26T01:19:21.000Z" itemprop="datePublished">2015-04-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      设计模式之策略模式(Strategy)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###策略模式定义：<br>定义了算法族，分别封装起来，让它们之间可以相互替换，此模式让算法的变化独立于使用算法的客户。<br><a id="more"></a></p>
+<p>###UML类图：<br><img src="https://raw.githubusercontent.com/huxian99/git/master/image/Strategy.png" alt="">  </p>
+<p>###使用场景：<br>多用在算法决策中，用户只需要决定用哪个算法而不需要知道具体实现。即仅仅在算法上有不同实现，实则是解决同一个类型的问题时。  </p>
+<p>###简单Demo：<br>有一天逛论坛，发现一个帖子是教程序员追女孩的，于是顺手点进去看了下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">chaseGirl</span> <span class="params">(String constellation)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="string">"Aries"</span>.equals(constellation)) &#123;</span><br><span class="line">        System.out.println(<span class="string">"白羊座：带她玩，带她各种玩。什么刺激玩什么，什么玩命给她玩什么。你要是毒枭加军火贩子，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"Taurus"</span>.equals(constellation)) &#123;</span><br><span class="line">        System.out.println(<span class="string">"金牛座：给她钱，给她各种钱。什么值钱给她什么，什么升值给她什么。你要是个银行家加富二代，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"Gemini"</span>.equals(constellation)) &#123;</span><br><span class="line">        System.out.println(<span class="string">"双子座：听她骗，听她各种骗。她说什么你信什么，甭管说多假你都信，要是她和情人调情被你抓见，还说只爱你一个你都信，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"Cancer"</span>.equals(constellation)) &#123;</span><br><span class="line">        System.out.println(<span class="string">"巨蟹座：装可怜，各种装可怜。把自己说的要多惨有多惨，不爹死妈死的你都不好意思。要是你各种惨，还能给她来点值钱的浪漫，譬如说一个孩子，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"Leo"</span>.equals(constellation)) &#123;</span><br><span class="line">        System.out.println(<span class="string">"狮子座：给面子，必须给她面子。各种在外场合给她面子，端茶倒水这些事，是你必须要做的。如果你能养成就你们两人在一起的时候，还能管她叫女王，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"Virgo"</span>.equals(constellation)) &#123;</span><br><span class="line">        System.out.println(<span class="string">"处女座：按着她的方式活，你必须按着她的方式活。让她给你制定一百条行为准则，你一有越界就自罚。但你不能对她有任何要求，即使她当着你的面抠脚，你也不要嫌弃，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"Libra"</span>.equals(constellation)) &#123;</span><br><span class="line">        System.out.println(<span class="string">"天秤座：不怪她，她做什么事你也都不怪她。即使她当众打你一嘴巴，你也不怪她。即使她和你哥们搞在了一起，你也不怪她。并且你还能给她道歉，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"Scorpio"</span>.equals(constellation)) &#123;</span><br><span class="line">        System.out.println(<span class="string">"天蝎座：为了她与哥们断绝关系，不要与哥们看球、泡吧、吃饭、喝酒、把妹。如果你能为了她连你爸妈都不认了，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"Sagittarius"</span>.equals(constellation)) &#123;</span><br><span class="line">        System.out.println(<span class="string">"射手座：装酷，你必须学会各种装酷，即使你穿着拖鞋也要走出猫步，即使你开着夏利过弯也必须漂移。如果你喝白开水都能喝出XO的感觉，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"Capricorn"</span>.equals(constellation)) &#123;</span><br><span class="line">        System.out.println(<span class="string">"摩羯座：管她叫女王，不管是女王大人，还是女王吧。女王俩字必须次不离口。如果你能做到你管她叫女王的同时，还能做到让其他人管她叫女王，满足她的虚荣心，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"Aquarius"</span>.equals(constellation)) &#123;</span><br><span class="line">        System.out.println(<span class="string">"水瓶座：娶了她，不管怎么样你要娶了她。即使你有媳妇也要娶她，即使你比她大二十岁你也要娶她。即使她是你同父异母的妹妹……反正，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"Pisces"</span>.equals(constellation)) &#123;</span><br><span class="line">        System.out.println(<span class="string">"双鱼座：伺候她，各种伺候她，结婚后必须天天做饭，洗碗，扫地，洗衣服。日常家务必须是你的，要是晚上的时候，你还能心怀不乱给她做个按摩，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>简单看了看大意就是教程序员追不同星座的妹子所使用不同的策略，为了让程序员看懂还使用了这么多if else的程序段(话说现在的小编也是蛮拼的，看着小编这么拼，程序员们你们还好意思宅着么)。看着小编的头像是一个特别漂亮的妹子，所以你忍不住秀起了你的代码。  </p>
+<p><code>1. 先定义一个接口：</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Chase</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">chaseGirl</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">`<span class="number">2</span>. 定义了一组具体实现类：`  </span><br><span class="line">```java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChaseAries</span> <span class="keyword">implements</span> <span class="title">Chase</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">chaseGirl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"白羊座：带她玩，带她各种玩。什么刺激玩什么，什么玩命给她玩什么。你要是毒枭加军火贩子，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChaseCancer</span> <span class="keyword">implements</span> <span class="title">Chase</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">chaseGirl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"巨蟹座：装可怜，各种装可怜。把自己说的要多惨有多惨，不爹死妈死的你都不好意思。要是你各种惨，还能给她来点值钱的浪漫，譬如说一个孩子，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChaseCancer</span> <span class="keyword">implements</span> <span class="title">Chase</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">chaseGirl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"巨蟹座：装可怜，各种装可怜。把自己说的要多惨有多惨，不爹死妈死的你都不好意思。要是你各种惨，还能给她来点值钱的浪漫，譬如说一个孩子，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChaseGemini</span> <span class="keyword">implements</span> <span class="title">Chase</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">chaseGirl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"双子座：听她骗，听她各种骗。她说什么你信什么，甭管说多假你都信，要是她和情人调情被你抓见，还说只爱你一个你都信，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChaseLeo</span> <span class="keyword">implements</span> <span class="title">Chase</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">chaseGirl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"狮子座：给面子，必须给她面子。各种在外场合给她面子，端茶倒水这些事，是你必须要做的。如果你能养成就你们两人在一起的时候，还能管她叫女王，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChaseLibra</span> <span class="keyword">implements</span> <span class="title">Chase</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">chaseGirl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"天秤座：不怪她，她做什么事你也都不怪她。即使她当众打你一嘴巴，你也不怪她。即使她和你哥们搞在了一起，你也不怪她。并且你还能给她道歉，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChasePisces</span> <span class="keyword">implements</span> <span class="title">Chase</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">chaseGirl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"双鱼座：伺候她，各种伺候她，结婚后必须天天做饭，洗碗，扫地，洗衣服。日常家务必须是你的，要是晚上的时候，你还能心怀不乱给她做个按摩，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChaseTaurus</span> <span class="keyword">implements</span> <span class="title">Chase</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">chaseGirl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"金牛座：给她钱，给她各种钱。什么值钱给她什么，什么升值给她什么。你要是个银行家加富二代，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChaseVirgo</span> <span class="keyword">implements</span> <span class="title">Chase</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">chaseGirl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"处女座：按着她的方式活，你必须按着她的方式活。让她给你制定一百条行为准则，你一有越界就自罚。但你不能对她有任何要求，即使她当着你的面抠脚，你也不要嫌弃，这姑娘你算是拿下了。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">`<span class="number">3</span>. 定义实现：`  </span><br><span class="line">```java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChaseImpl</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Chase chase;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setChase</span><span class="params">(Chase chase)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.chase = chase;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">performChase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        chase.chaseGirl();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>4. 最后写一个客户端测试一下：</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> </span>&#123;</span><br><span class="line">        ChaseImpl chase = <span class="keyword">new</span> ChaseImpl();</span><br><span class="line">        chase.setChase(<span class="keyword">new</span> ChaseLibra());</span><br><span class="line">        chase.performChase();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//如果你想换个双鱼座的女孩子，很容易的换个策略就好了</span></span><br><span class="line">        chase.setChase(<span class="keyword">new</span> ChasePisces());</span><br><span class="line">        chase.performChase();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>result:</code><br>天秤座：不怪她，她做什么事你也都不怪她。即使她当众打你一嘴巴，你也不怪她。即使她和你哥们搞在了一起，你也不怪她。并且你还能给她道歉，这姑娘你算是拿下了。<br>双鱼座：伺候她，各种伺候她，结婚后必须天天做饭，洗碗，扫地，洗衣服。日常家务必须是你的，要是晚上的时候，你还能心怀不乱给她做个按摩，这姑娘你算是拿下了。  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/04/26/设计模式之策略模式-Strategy/" data-id="ciqs2t8i6002cebxki2yf0mks" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/05/01/设计模式之观察者模式-Observer/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          设计模式之观察者模式(Observer)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/03/25/SlidingMenu源码分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SlidingMenu源码分析</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Member-Leak/">Android, Member Leak</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-架构/">Android, 架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJava/">RxJava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 13.33px;">Android</a> <a href="/tags/Android-Member-Leak/" style="font-size: 13.33px;">Android, Member Leak</a> <a href="/tags/Android-架构/" style="font-size: 10px;">Android, 架构</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/RxJava/" style="font-size: 13.33px;">RxJava</a> <a href="/tags/android/" style="font-size: 13.33px;">android</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 10px;">other</a> <a href="/tags/源码分析/" style="font-size: 10px;">源码分析</a> <a href="/tags/设计模式/" style="font-size: 16.67px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/15/Android-探测App完全退出后再启动/">Android 探测App完全退出后再启动</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/07/Android-应用架构/">Android 应用架构</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/05/Android-当用户停用app之后/">Android 当用户停用app之后</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/29/RxJava的Android开发之路-RxJava未来-三/">RxJava的Android开发之路 RxJava未来(三)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/28/RxJava的Android开发之路-RxJava实战-二/">RxJava的Android开发之路 RxJava实战 (二)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 huxian99<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

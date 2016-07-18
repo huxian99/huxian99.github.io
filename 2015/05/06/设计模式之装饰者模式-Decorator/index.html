@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>设计模式之装饰者模式(Decorator) | 弧线</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="###装饰者模式定义：动态地将责任附加到对象上。想要扩展功能，装饰者提供有别于继承的另一种选择。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之装饰者模式(Decorator)">
+<meta property="og:url" content="http://yoursite.com/2015/05/06/设计模式之装饰者模式-Decorator/index.html">
+<meta property="og:site_name" content="弧线">
+<meta property="og:description" content="###装饰者模式定义：动态地将责任附加到对象上。想要扩展功能，装饰者提供有别于继承的另一种选择。">
+<meta property="og:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/Decorator.png">
+<meta property="og:updated_time" content="2015-06-06T06:20:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式之装饰者模式(Decorator)">
+<meta name="twitter:description" content="###装饰者模式定义：动态地将责任附加到对象上。想要扩展功能，装饰者提供有别于继承的另一种选择。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/Decorator.png">
+  
+    <link rel="alternate" href="/atom.xml" title="弧线" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">弧线</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-设计模式之装饰者模式-Decorator" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/06/设计模式之装饰者模式-Decorator/" class="article-date">
+  <time datetime="2015-05-06T13:03:52.000Z" itemprop="datePublished">2015-05-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      设计模式之装饰者模式(Decorator)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###装饰者模式定义：<br>动态地将责任附加到对象上。想要扩展功能，装饰者提供有别于继承的另一种选择。<br><a id="more"></a></p>
+<p>###UML类图：<br><img src="https://raw.githubusercontent.com/huxian99/git/master/image/Decorator.png" alt="">  </p>
+<p>###使用场景：  </p>
+<ol>
+<li>需要扩展一个类的功能，或给一个类添加附加职责。  </li>
+<li>需要动态的给一个对象添加功能，而且还可以动态的撤销。(继承不能做到这一点，继承的功能是静态的，不能动态增删）  </li>
+<li>需要增加由一些基本功能的排列组合而产生的非常大量的功能，从而使继承关系变的不现实。  </li>
+</ol>
+<p>###优缺点：<br><code>优点：</code>  </p>
+<ol>
+<li>装饰者模式可以提供比继承更多的灵活性。  </li>
+<li>通过使用不同的具体装饰者类，我们可以创造出很多不同行为的组合。  </li>
+</ol>
+<p><code>缺点：</code>  </p>
+<ol>
+<li>设计中会出现许多相似的对象，如果过度使用，会使程序变得很复杂，不容易排错。  </li>
+<li>装饰模式是针对抽象组件（Component）类型编程。但是，如果你要针对具体组件编程时，就应该重新思考你的应用架构，以及装饰者是否合适。当然也可以改变Component接口，增加新的公开的行为，实现“半透明”的装饰者模式。在实际项目中要做出最佳选择。  </li>
+</ol>
+<p>###简单Demo：<br>非诚勿扰节目组考虑将24位女嘉宾的坐标，性格/爱好显示给用户。为此他们打算设计一套系统，你看到了这个信息，心想着帮他们设计一下。于是赶紧写起了代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Girl</span></span>&#123;</span><br><span class="line">    String description = <span class="string">"no particular"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后24个女嘉宾只需要继承这个抽象的Girl不就妥妥地ok了么。<br>看到一号女嘉宾是个很可爱的中国妹子:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChinaWithCute</span> <span class="keyword">extends</span> <span class="title">Girl</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Chinese girl cute"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>看到二号女嘉宾是个很年轻的米国妹子:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AmericaWithYoung</span> <span class="keyword">extends</span> <span class="title">Girl</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"America girl young"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line">看到三号女嘉宾是个很善良的中国妹子:  </span><br><span class="line">```java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChinaWithVirtuous</span> <span class="keyword">extends</span> <span class="title">Girl</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"China girl virtuous"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>看到四号女嘉宾，五号女嘉宾… 等等，这么说来要写24个妹子了！  </p>
+<p>旁边的小伙伴看到你在设计这个问题，于是略带嘲笑的问了问你：那如果一个女嘉宾走了，新来一个女嘉宾，你还要再实现一个妹子了？  </p>
+<p>聪明的你实在受不了自己这么糟糕的设计了，明明可以把这些性格/爱好抽象出来去装饰这些妹子么.  </p>
+<p><code>1. 妹子接口：</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Girl</span> </span>&#123;</span><br><span class="line">    String description = <span class="string">"no particular"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">`<span class="number">2</span>. Concrete Component：`  </span><br><span class="line">```java</span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 中国妹子</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChinaGirl</span> <span class="keyword">implements</span> <span class="title">Girl</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Chinese Girl"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 米国妹子</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AmericaGirl</span> <span class="keyword">implements</span> <span class="title">Girl</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"American Girl"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">`<span class="number">3</span>. 装饰性格/爱好的接口：`  </span><br><span class="line">```java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">GirlDecorator</span> <span class="keyword">extends</span> <span class="title">Girl</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">`<span class="number">4</span>. Concrete Decorator：`  </span><br><span class="line">```java</span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 可爱的妹子</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cute</span> <span class="keyword">implements</span> <span class="title">GirlDecorator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Girl girl;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Cute</span><span class="params">(Girl girl)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.girl = girl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> girl.getDescription() + <span class="string">" cute"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 孝顺的妹子</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Filial</span> <span class="keyword">implements</span> <span class="title">GirlDecorator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Girl girl;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Filial</span><span class="params">(Girl girl)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.girl = girl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> girl.getDescription() + <span class="string">" filial"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 善良的妹子</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Virtuous</span> <span class="keyword">implements</span> <span class="title">GirlDecorator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Girl girl;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Virtuous</span><span class="params">(Girl girl)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.girl = girl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> girl.getDescription() + <span class="string">" virtuous"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 年轻的妹子</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Young</span> <span class="keyword">implements</span> <span class="title">GirlDecorator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Girl girl;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Young</span><span class="params">(Girl girl)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.girl = girl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> girl.getDescription() + <span class="string">" young"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>4. 客户端测试：</code>  </p>
+<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>{
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{
+        Girl china = <span class="keyword">new</span> ChinaGirl();
+        china = <span class="keyword">new</span> Cute(china);
+        china = <span class="keyword">new</span> Filial(china);
+        System.out.println(china.getDescription());
+
+        Girl america = <span class="keyword">new</span> AmericaGirl();
+        america = <span class="keyword">new</span> Virtuous(america);
+        america = <span class="keyword">new</span> Young(america);
+        System.out.println(america.getDescription());
+    }
+
+}
+</code></pre>
+<p><code>result：</code><br>Chinese Girl cute filial<br>American Girl virtuous young  </p>
+<p>这时候新来了一个米国身材非常Hot的妹子，你可以动态地，更灵活的把她加入到你的系统中了吧。  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/05/06/设计模式之装饰者模式-Decorator/" data-id="ciqs2t8ii002lebxk6zz0b2on" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/05/21/设计模式之工厂模式-Factory/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          设计模式之工厂模式(Factory)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/05/01/设计模式之观察者模式-Observer/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">设计模式之观察者模式(Observer)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Member-Leak/">Android, Member Leak</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-架构/">Android, 架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJava/">RxJava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 13.33px;">Android</a> <a href="/tags/Android-Member-Leak/" style="font-size: 13.33px;">Android, Member Leak</a> <a href="/tags/Android-架构/" style="font-size: 10px;">Android, 架构</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/RxJava/" style="font-size: 13.33px;">RxJava</a> <a href="/tags/android/" style="font-size: 13.33px;">android</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 10px;">other</a> <a href="/tags/源码分析/" style="font-size: 10px;">源码分析</a> <a href="/tags/设计模式/" style="font-size: 16.67px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/15/Android-探测App完全退出后再启动/">Android 探测App完全退出后再启动</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/07/Android-应用架构/">Android 应用架构</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/05/Android-当用户停用app之后/">Android 当用户停用app之后</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/29/RxJava的Android开发之路-RxJava未来-三/">RxJava的Android开发之路 RxJava未来(三)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/28/RxJava的Android开发之路-RxJava实战-二/">RxJava的Android开发之路 RxJava实战 (二)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 huxian99<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

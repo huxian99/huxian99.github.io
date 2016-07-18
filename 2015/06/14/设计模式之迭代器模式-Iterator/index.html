@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>设计模式之迭代器模式(Iterator) | 弧线</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="###迭代器模式定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之迭代器模式(Iterator)">
+<meta property="og:url" content="http://yoursite.com/2015/06/14/设计模式之迭代器模式-Iterator/index.html">
+<meta property="og:site_name" content="弧线">
+<meta property="og:description" content="###迭代器模式定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。">
+<meta property="og:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/Iterator.png">
+<meta property="og:updated_time" content="2015-06-14T09:38:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式之迭代器模式(Iterator)">
+<meta name="twitter:description" content="###迭代器模式定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/Iterator.png">
+  
+    <link rel="alternate" href="/atom.xml" title="弧线" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">弧线</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-设计模式之迭代器模式-Iterator" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/14/设计模式之迭代器模式-Iterator/" class="article-date">
+  <time datetime="2015-06-14T03:46:36.000Z" itemprop="datePublished">2015-06-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      设计模式之迭代器模式(Iterator)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###迭代器模式定义：<br>提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。<br><a id="more"></a></p>
+<p>###UML类图：<br><img src="https://raw.githubusercontent.com/huxian99/git/master/image/Iterator.png" alt="">  </p>
+<p>###使用场景：<br>需要将遍历聚合的工作封装进一个对象时。  </p>
+<p>###简单Demo：<br>参考java.util.Iterator  </p>
+<p>###单一责任原则：<br>一个类应该只有一个引起变化的原因  </p>
+<p>当我们允许一个类不但要完成自己的事情（管理某种聚合），还同时要担负更多的责任（例如遍历）时，我们就给了这个类两个变化的原因。这违反了单一责任原则，如果类有过多的可改变区域，当修改代码时也就意味着更多潜在可能的错误。<br>迭代器模式分离了集合对象的遍历行为，抽象出一个迭代器类，这样既可以做到不暴露集合的内部结构，又可让外部代码透明的访问集合内部的数据。  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/06/14/设计模式之迭代器模式-Iterator/" data-id="ciqs2t8in002rebxk8ng029oc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/06/16/设计模式之组合模式-Composite/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          设计模式之组合模式(Composite)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/06/11/设计模式之模板方法模式-Template-Method/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">设计模式之模板方法模式(Template Method)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Member-Leak/">Android, Member Leak</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-架构/">Android, 架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJava/">RxJava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 13.33px;">Android</a> <a href="/tags/Android-Member-Leak/" style="font-size: 13.33px;">Android, Member Leak</a> <a href="/tags/Android-架构/" style="font-size: 10px;">Android, 架构</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/RxJava/" style="font-size: 13.33px;">RxJava</a> <a href="/tags/android/" style="font-size: 13.33px;">android</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 10px;">other</a> <a href="/tags/源码分析/" style="font-size: 10px;">源码分析</a> <a href="/tags/设计模式/" style="font-size: 16.67px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/15/Android-探测App完全退出后再启动/">Android 探测App完全退出后再启动</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/07/Android-应用架构/">Android 应用架构</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/05/Android-当用户停用app之后/">Android 当用户停用app之后</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/29/RxJava的Android开发之路-RxJava未来-三/">RxJava的Android开发之路 RxJava未来(三)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/28/RxJava的Android开发之路-RxJava实战-二/">RxJava的Android开发之路 RxJava实战 (二)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 huxian99<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

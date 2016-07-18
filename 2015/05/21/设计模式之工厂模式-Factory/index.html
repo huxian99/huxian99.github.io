@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>设计模式之工厂模式(Factory) | 弧线</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="###工厂模式定义：定义了一个创建对象的接口，但由子类决定要实例化的类是哪一个。工厂方法让类把实例化推迟到子类。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之工厂模式(Factory)">
+<meta property="og:url" content="http://yoursite.com/2015/05/21/设计模式之工厂模式-Factory/index.html">
+<meta property="og:site_name" content="弧线">
+<meta property="og:description" content="###工厂模式定义：定义了一个创建对象的接口，但由子类决定要实例化的类是哪一个。工厂方法让类把实例化推迟到子类。">
+<meta property="og:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/Factory.png">
+<meta property="og:updated_time" content="2015-06-06T06:20:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式之工厂模式(Factory)">
+<meta name="twitter:description" content="###工厂模式定义：定义了一个创建对象的接口，但由子类决定要实例化的类是哪一个。工厂方法让类把实例化推迟到子类。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/Factory.png">
+  
+    <link rel="alternate" href="/atom.xml" title="弧线" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">弧线</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-设计模式之工厂模式-Factory" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/21/设计模式之工厂模式-Factory/" class="article-date">
+  <time datetime="2015-05-20T18:03:03.000Z" itemprop="datePublished">2015-05-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      设计模式之工厂模式(Factory)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###工厂模式定义：<br>定义了一个创建对象的接口，但由子类决定要实例化的类是哪一个。工厂方法让类把实例化推迟到子类。<br><a id="more"></a></p>
+<p>###UML类图：<br><img src="https://raw.githubusercontent.com/huxian99/git/master/image/Factory.png" alt="">  </p>
+<p>###使用场景：</p>
+<ol>
+<li>需要使用工厂替代new的场景(创建对象有较多重复的代码)；  </li>
+<li>需要隐藏具体实现，并且使抽象与实现解耦合；  </li>
+<li>需要灵活、可扩展的框架，且具体类型不多时。  </li>
+</ol>
+<p>###简单Demo：<br>你有一个聪明漂亮又贤惠的女朋友，业余爱好是做一些小甜点，烘培一些小蛋糕给你吃，有Tiramisu口味的，还有Mcake口味的，最新又新学了Mousse口味的，每天都变着法子做你最喜欢吃的蛋糕， 然后依偎在你的怀里，问你好吃不好吃。总之把你哄的团团转，你就会每天拼命地加班写代码，拼命地挣钱来维持这份得来不易的幸福，稳稳的幸福。<br>时间一点点过去，转眼来到了2015年，你存了一些钱，也有了一定的技术积累，你想通过这些年的存款给她开一间属于你们的蛋糕店，当你把这个想法跟她沟通后，她不知道有多幸福，多快乐，嘴里却说着：“一辈子能给你做蛋糕就是我最大的幸福了”，但是你自己清楚，你一直有一颗躁动的心，因为你一直想要让她成为全世界最幸福的人，那离不开深厚的经济基础，“经济基础决定上层建筑”，嗯，你一直这样告诉自己。你想把这个店开到全国甚至全世界，树立一个属于你们的品牌，虽然梦想总是遥不可及，但也不应该放弃，所以你在为这个蛋糕店设计系统时思考了很多，希望它能够有弹性，灵活，可以扩展。<br><code>1. 定义蛋糕超类(Product)</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Cake</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Preparing "</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bake</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Bake for 25 minutes"</span>);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"pack for your "</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line">`<span class="number">2</span>. 定义具体蛋糕类(ConcreteProduct)`  </span><br><span class="line">```java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tiramisu</span> <span class="keyword">extends</span> <span class="title">Cake</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Tiramisu</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = <span class="string">"Tiramisu"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mcake</span> <span class="keyword">extends</span> <span class="title">Cake</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Mcake</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = <span class="string">"Mcake"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p><code>3. 定义蛋糕店超类(Creator)</code>  </p>
+<pre><code class="java"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">CakeStore</span> </span>{
+
+    <span class="function"><span class="keyword">public</span> Cake <span class="title">orderCake</span><span class="params">(String type)</span> </span>{
+        Cake cake = createCake(type);
+        cake.prepare();
+        cake.bake();
+        cake.pack();
+        <span class="keyword">return</span> cake;
+    }
+
+    <span class="comment">//工厂方法</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Cake <span class="title">createCake</span><span class="params">(String type)</span></span>;
+
+}
+</code></pre>
+<p><code>4. 定义第一家属于你们具体蛋糕店类，你把它取名叫做童话蛋糕店</code>  </p>
+<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TaleCakeStore</span> <span class="keyword">extends</span> <span class="title">CakeStore</span> </span>{
+
+    <span class="function"><span class="keyword">public</span> Cake <span class="title">createCake</span><span class="params">(String type)</span> </span>{
+        Cake cake = <span class="keyword">null</span>;
+        <span class="keyword">if</span> (<span class="string">"Mcake"</span>.equals(type)) {
+            cake = <span class="keyword">new</span> Mcake();
+        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"Tiramisu"</span>.equals(type)) {
+            cake = <span class="keyword">new</span> Tiramisu();
+        }
+        <span class="keyword">return</span> cake;
+    }
+
+}
+</code></pre>
+<p>开业第一天，来了第一个顾客，点了一份提拉米苏，你不知道有多开心  </p>
+<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>{
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{
+        CakeStore store = <span class="keyword">new</span> TaleCakeStore();
+        Cake cake = store.orderCake(<span class="string">"Tiramisu"</span>);
+        System.out.println(<span class="string">"Client ordered a "</span> + cake.getName());
+    }
+
+}
+</code></pre>
+<p><code>result:</code><br>Preparing Tiramisu<br>Bake for 25 minutes<br>pack for your Tiramisu<br>Client ordered a Tiramisu</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/05/21/设计模式之工厂模式-Factory/" data-id="ciqs2t8gp0017ebxkj0hyogeb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/05/30/设计模式之抽象工厂模式-Abstract-Factory/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          设计模式之抽象工厂模式(Abstract Factory)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/05/06/设计模式之装饰者模式-Decorator/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">设计模式之装饰者模式(Decorator)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Member-Leak/">Android, Member Leak</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-架构/">Android, 架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJava/">RxJava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 13.33px;">Android</a> <a href="/tags/Android-Member-Leak/" style="font-size: 13.33px;">Android, Member Leak</a> <a href="/tags/Android-架构/" style="font-size: 10px;">Android, 架构</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/RxJava/" style="font-size: 13.33px;">RxJava</a> <a href="/tags/android/" style="font-size: 13.33px;">android</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 10px;">other</a> <a href="/tags/源码分析/" style="font-size: 10px;">源码分析</a> <a href="/tags/设计模式/" style="font-size: 16.67px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/15/Android-探测App完全退出后再启动/">Android 探测App完全退出后再启动</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/07/Android-应用架构/">Android 应用架构</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/05/Android-当用户停用app之后/">Android 当用户停用app之后</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/29/RxJava的Android开发之路-RxJava未来-三/">RxJava的Android开发之路 RxJava未来(三)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/28/RxJava的Android开发之路-RxJava实战-二/">RxJava的Android开发之路 RxJava实战 (二)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 huxian99<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

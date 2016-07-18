@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android crash时堆栈及相关信息收集 | 弧线</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在写android应用过程中，难免不出现程序crash，即使测过好多台手机的线上版本，而且crash时的错误对话框实在是丑到不行。在程序调试时我们通过logcat可以得到相关的错误信息进行代码定位，以便修正。  所以线上的版本也要想办法得到异常信息。  
+#####1. 建立实现UncaughtExceptionHandler接口的异常处理器
+#####2. 收集堆栈及用户手机等所需要的相关信息并">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android crash时堆栈及相关信息收集">
+<meta property="og:url" content="http://yoursite.com/2015/01/16/Android-crash时堆栈及相关信息收集/index.html">
+<meta property="og:site_name" content="弧线">
+<meta property="og:description" content="在写android应用过程中，难免不出现程序crash，即使测过好多台手机的线上版本，而且crash时的错误对话框实在是丑到不行。在程序调试时我们通过logcat可以得到相关的错误信息进行代码定位，以便修正。  所以线上的版本也要想办法得到异常信息。  
+#####1. 建立实现UncaughtExceptionHandler接口的异常处理器
+#####2. 收集堆栈及用户手机等所需要的相关信息并">
+<meta property="og:updated_time" content="2015-06-06T06:21:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android crash时堆栈及相关信息收集">
+<meta name="twitter:description" content="在写android应用过程中，难免不出现程序crash，即使测过好多台手机的线上版本，而且crash时的错误对话框实在是丑到不行。在程序调试时我们通过logcat可以得到相关的错误信息进行代码定位，以便修正。  所以线上的版本也要想办法得到异常信息。  
+#####1. 建立实现UncaughtExceptionHandler接口的异常处理器
+#####2. 收集堆栈及用户手机等所需要的相关信息并">
+  
+    <link rel="alternate" href="/atom.xml" title="弧线" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">弧线</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android-crash时堆栈及相关信息收集" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/16/Android-crash时堆栈及相关信息收集/" class="article-date">
+  <time datetime="2015-01-16T13:01:10.000Z" itemprop="datePublished">2015-01-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android crash时堆栈及相关信息收集
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在写android应用过程中，难免不出现程序crash，即使测过好多台手机的线上版本，而且crash时的错误对话框实在是丑到不行。在程序调试时我们通过logcat可以得到相关的错误信息进行代码定位，以便修正。  所以线上的版本也要想办法得到异常信息。  </p>
+<p>#####1. 建立实现UncaughtExceptionHandler接口的异常处理器</p>
+<p>#####2. 收集堆栈及用户手机等所需要的相关信息并杀死当前程序</p>
+<p>#####3. 在Application中注册未捕获异常处理器</p>
+<p>#####4. 在AndroidManifest.xml中注册Application<br><a id="more"></a><br>下面贴出详细的代码：</p>
+<p>######异常处理CrashHandler：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CrashHandler</span> <span class="keyword">implements</span> <span class="title">UncaughtExceptionHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> CrashHandler instance;</span><br><span class="line">    <span class="keyword">private</span> UncaughtExceptionHandler uncaughtExceptionHandler;</span><br><span class="line">    <span class="keyword">private</span> Context context;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">CrashHandler</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> CrashHandler <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (CrashHandler.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> CrashHandler();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.context = context;</span><br><span class="line">        <span class="keyword">this</span>.uncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();</span><br><span class="line">        Thread.setDefaultUncaughtExceptionHandler(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">uncaughtException</span><span class="params">(Thread thread, Throwable exception)</span> </span>&#123;</span><br><span class="line">        StringBuilder report = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        Date curDate = <span class="keyword">new</span> Date();</span><br><span class="line">        report.append(<span class="string">"Error Report collected on : "</span>).append(curDate.toString()).append(<span class="string">'\n'</span>);</span><br><span class="line">        report.append(<span class="string">"Informations :"</span>).append(<span class="string">'\n'</span>);</span><br><span class="line">        addInformation(report);</span><br><span class="line">        report.append(<span class="string">"Stack:\n"</span>);</span><br><span class="line">        collectStackInfo(exception, report);</span><br><span class="line">        <span class="comment">// 显示fc对话框，如果不想显示 注销掉下面这一行即可</span></span><br><span class="line">        uncaughtExceptionHandler.uncaughtException(thread, exception);</span><br><span class="line">        android.os.Process.killProcess(android.os.Process.myPid());</span><br><span class="line">        <span class="comment">// 上传report到服务器就妥妥滴了...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">collectStackInfo</span><span class="params">(Throwable exception, StringBuilder report)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> Writer result = <span class="keyword">new</span> StringWriter();</span><br><span class="line">        <span class="keyword">final</span> PrintWriter printWriter = <span class="keyword">new</span> PrintWriter(result);</span><br><span class="line">        exception.printStackTrace(printWriter);</span><br><span class="line">        report.append(result.toString());</span><br><span class="line">        printWriter.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">addInformation</span><span class="params">(StringBuilder message)</span> </span>&#123;</span><br><span class="line">        message.append(<span class="string">"Locale: "</span>).append(Locale.getDefault()).append(<span class="string">"\n"</span>);</span><br><span class="line">        PackageManager pm = context.getPackageManager();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), <span class="number">0</span>);</span><br><span class="line">            message.append(<span class="string">"Version: "</span>).append(pi.versionName).append(<span class="string">"\n"</span>);</span><br><span class="line">            message.append(<span class="string">"Package: "</span>).append(pi.packageName).append(<span class="string">"\n"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (PackageManager.NameNotFoundException e) &#123;</span><br><span class="line">            message.append(<span class="string">"Could not get version infomation for "</span>).append(context.getPackageName());</span><br><span class="line">        &#125;</span><br><span class="line">        message.append(<span class="string">"Phone Model: "</span>).append(android.os.Build.MODEL).append(<span class="string">"\n"</span>);</span><br><span class="line">        message.append(<span class="string">"Android Version: "</span>).append(android.os.Build.VERSION.RELEASE).append(<span class="string">"\n"</span>);</span><br><span class="line">        message.append(<span class="string">"Board: "</span>).append(android.os.Build.BOARD).append(<span class="string">"\n"</span>);</span><br><span class="line">        message.append(<span class="string">"Brand: "</span>).append(android.os.Build.BRAND).append(<span class="string">"\n"</span>);</span><br><span class="line">        message.append(<span class="string">"Device: "</span>).append(android.os.Build.DEVICE).append(<span class="string">"\n"</span>);</span><br><span class="line">        message.append(<span class="string">"Host: "</span>).append(android.os.Build.HOST).append(<span class="string">"\n"</span>);</span><br><span class="line">        message.append(<span class="string">"ID: "</span>).append(android.os.Build.ID).append(<span class="string">"\n"</span>);</span><br><span class="line">        message.append(<span class="string">"Model: "</span>).append(android.os.Build.MODEL).append(<span class="string">"\n"</span>);</span><br><span class="line">        message.append(<span class="string">"Product: "</span>).append(android.os.Build.PRODUCT).append(<span class="string">"\n"</span>);</span><br><span class="line">        message.append(<span class="string">"Type: "</span>).append(android.os.Build.TYPE).append(<span class="string">"\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>######自定义Application注册CrashHandler：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate();</span><br><span class="line">    CrashHandler.getInstance().init(getApplicationContext());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>######最后在AndroidManifest中配置一下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span></span><br><span class="line">    <span class="attr">android:name</span>=<span class="string">"com.huxian.HuxianApplication"</span></span><br><span class="line">    <span class="attr">...</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/01/16/Android-crash时堆栈及相关信息收集/" data-id="ciqs2t8et0000ebxkz6n0l0ct" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/02/10/极度兴奋和极度压抑交织的一年，我的2014/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          极度兴奋和极度压抑交织的一年，我的2014
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/12/21/搭建Hexo/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">搭建Hexo</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/other/">other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Member-Leak/">Android, Member Leak</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-架构/">Android, 架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJava/">RxJava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 13.33px;">Android</a> <a href="/tags/Android-Member-Leak/" style="font-size: 13.33px;">Android, Member Leak</a> <a href="/tags/Android-架构/" style="font-size: 10px;">Android, 架构</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/RxJava/" style="font-size: 13.33px;">RxJava</a> <a href="/tags/android/" style="font-size: 13.33px;">android</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 10px;">other</a> <a href="/tags/源码分析/" style="font-size: 10px;">源码分析</a> <a href="/tags/设计模式/" style="font-size: 16.67px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/15/Android-探测App完全退出后再启动/">Android 探测App完全退出后再启动</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/07/Android-应用架构/">Android 应用架构</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/05/Android-当用户停用app之后/">Android 当用户停用app之后</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/29/RxJava的Android开发之路-RxJava未来-三/">RxJava的Android开发之路 RxJava未来(三)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/28/RxJava的Android开发之路-RxJava实战-二/">RxJava的Android开发之路 RxJava实战 (二)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 huxian99<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
