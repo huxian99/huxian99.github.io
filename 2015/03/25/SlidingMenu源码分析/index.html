@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="##1. 功能介绍现在主流app的导航栏一般有两种，一种是主界面上面3－4个tab下面搭配ViewPager+Fragment，另一种就是侧边栏，如果主导航超过3个tab时，建议使用侧边栏作为app的主导航。SlidingMenu是一个强大的侧边栏导航框架，并且已经被一些比较牛的app使用，主要特点如下：(1).侧边栏可以是一个Fragment，包含任何View(2).使用简单方便，支持左滑和右滑">
+<meta name="description" content="1. 功能介绍现在主流app的导航栏一般有两种，一种是主界面上面3－4个tab下面搭配ViewPager+Fragment，另一种就是侧边栏，如果主导航超过3个tab时，建议使用侧边栏作为app的主导航。SlidingMenu是一个强大的侧边栏导航框架，并且已经被一些比较牛的app使用，主要特点如下：(1).侧边栏可以是一个Fragment，包含任何View(2).使用简单方便，支持左滑和右滑等(">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SlidingMenu源码分析">
 <meta property="og:url" content="http://yoursite.com/2015/03/25/SlidingMenu源码分析/index.html">
 <meta property="og:site_name" content="弧线">
-<meta property="og:description" content="##1. 功能介绍现在主流app的导航栏一般有两种，一种是主界面上面3－4个tab下面搭配ViewPager+Fragment，另一种就是侧边栏，如果主导航超过3个tab时，建议使用侧边栏作为app的主导航。SlidingMenu是一个强大的侧边栏导航框架，并且已经被一些比较牛的app使用，主要特点如下：(1).侧边栏可以是一个Fragment，包含任何View(2).使用简单方便，支持左滑和右滑">
+<meta property="og:description" content="1. 功能介绍现在主流app的导航栏一般有两种，一种是主界面上面3－4个tab下面搭配ViewPager+Fragment，另一种就是侧边栏，如果主导航超过3个tab时，建议使用侧边栏作为app的主导航。SlidingMenu是一个强大的侧边栏导航框架，并且已经被一些比较牛的app使用，主要特点如下：(1).侧边栏可以是一个Fragment，包含任何View(2).使用简单方便，支持左滑和右滑等(">
 <meta property="og:image" content="https://raw.githubusercontent.com/aosp-exchange-group/android-open-project-analysis/master/view/menu/sliding-menu/image/SlidingMenu.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/aosp-exchange-group/android-open-project-analysis/master/view/menu/sliding-menu/image/touch_event.jpg">
-<meta property="og:updated_time" content="2015-06-06T06:21:00.000Z">
+<meta property="og:updated_time" content="2016-07-18T15:59:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SlidingMenu源码分析">
-<meta name="twitter:description" content="##1. 功能介绍现在主流app的导航栏一般有两种，一种是主界面上面3－4个tab下面搭配ViewPager+Fragment，另一种就是侧边栏，如果主导航超过3个tab时，建议使用侧边栏作为app的主导航。SlidingMenu是一个强大的侧边栏导航框架，并且已经被一些比较牛的app使用，主要特点如下：(1).侧边栏可以是一个Fragment，包含任何View(2).使用简单方便，支持左滑和右滑">
+<meta name="twitter:description" content="1. 功能介绍现在主流app的导航栏一般有两种，一种是主界面上面3－4个tab下面搭配ViewPager+Fragment，另一种就是侧边栏，如果主导航超过3个tab时，建议使用侧边栏作为app的主导航。SlidingMenu是一个强大的侧边栏导航框架，并且已经被一些比较牛的app使用，主要特点如下：(1).侧边栏可以是一个Fragment，包含任何View(2).使用简单方便，支持左滑和右滑等(">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/aosp-exchange-group/android-open-project-analysis/master/view/menu/sliding-menu/image/SlidingMenu.png">
 
 
@@ -298,61 +298,71 @@
       
 
       
-        <p>##1. 功能介绍<br>现在主流app的导航栏一般有两种，一种是主界面上面3－4个tab下面搭配ViewPager+Fragment，另一种就是侧边栏，如果主导航超过3个tab时，建议使用侧边栏作为app的主导航。<br>SlidingMenu是一个强大的侧边栏导航框架，并且已经被一些比较牛的app使用，主要特点如下：<br>(1).侧边栏可以是一个Fragment，包含任何View<br>(2).使用简单方便，支持左滑和右滑等<br>(3).自定义侧边栏显示动画<br><a id="more"></a></p>
-<p>##2. 总体设计<br>SlidingMenu总体由三个主要的类组成<br>SlidingMenu继承自RelativeLayout，对外暴露API给用户，同时在添加CustomViewAbove和CustomViewBehind<br>CustomViewAbove继承自ViewGroup，主要用来处理<code>触摸屏事件</code><br>CustomViewBehind继承自ViewGroup，主要用来<code>配置参数</code>，<code>显示侧边栏的menu部分</code>  </p>
-<p>##3. 流程图<br>请参考 <code>4.2.2 CustomViewAbove事件处理流程图</code>  </p>
-<p>##4. 详细设计  </p>
-<p>###4.1 类关系图<br><img src="https://raw.githubusercontent.com/aosp-exchange-group/android-open-project-analysis/master/view/menu/sliding-menu/image/SlidingMenu.png" alt="">  </p>
-<p>###4.2 核心类功能介绍  </p>
-<p>####4.2.1 SlidingMenu.java<br>继承自RelativeLayout，对外提供API，用于配置侧边栏的侧滑模式，触摸模式，阴影，渐变及滑动效果等。<br>构造器中可以看到主要初始化了mViewBehind，mViewAbove及一些属性。<br>主要看attachToActivity方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attachToActivity</span><span class="params">(Activity activity, <span class="keyword">int</span> slideStyle, <span class="keyword">boolean</span> actionbarOverlay)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    ...</span><br><span class="line">    ViewGroup decor = (ViewGroup) activity.getWindow().getDecorView();</span><br><span class="line">    ViewGroup decorChild = (ViewGroup) decor.getChildAt(<span class="number">0</span>);</span><br><span class="line">    <span class="comment">// save ActionBar themes that have transparent assets</span></span><br><span class="line">    decorChild.setBackgroundResource(background);</span><br><span class="line">    decor.removeView(decorChild);</span><br><span class="line">    decor.addView(<span class="keyword">this</span>);</span><br><span class="line">    setContent(decorChild);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">    ...</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
+        <h2 id="1-功能介绍"><a href="#1-功能介绍" class="headerlink" title="1. 功能介绍"></a>1. 功能介绍</h2><p>现在主流app的导航栏一般有两种，一种是主界面上面3－4个tab下面搭配ViewPager+Fragment，另一种就是侧边栏，如果主导航超过3个tab时，建议使用侧边栏作为app的主导航。<br>SlidingMenu是一个强大的侧边栏导航框架，并且已经被一些比较牛的app使用，主要特点如下：<br>(1).侧边栏可以是一个Fragment，包含任何View<br>(2).使用简单方便，支持左滑和右滑等<br>(3).自定义侧边栏显示动画<br><a id="more"></a></p>
+<h2 id="2-总体设计"><a href="#2-总体设计" class="headerlink" title="2. 总体设计"></a>2. 总体设计</h2><p>SlidingMenu总体由三个主要的类组成<br>SlidingMenu继承自RelativeLayout，对外暴露API给用户，同时在添加CustomViewAbove和CustomViewBehind<br>CustomViewAbove继承自ViewGroup，主要用来处理<code>触摸屏事件</code><br>CustomViewBehind继承自ViewGroup，主要用来<code>配置参数</code>，<code>显示侧边栏的menu部分</code>  </p>
+<h2 id="3-流程图"><a href="#3-流程图" class="headerlink" title="3. 流程图"></a>3. 流程图</h2><p>请参考 <code>4.2.2 CustomViewAbove事件处理流程图</code>  </p>
+<h2 id="4-详细设计"><a href="#4-详细设计" class="headerlink" title="4. 详细设计"></a>4. 详细设计</h2><h3 id="4-1-类关系图"><a href="#4-1-类关系图" class="headerlink" title="4.1 类关系图"></a>4.1 类关系图</h3><p><img src="https://raw.githubusercontent.com/aosp-exchange-group/android-open-project-analysis/master/view/menu/sliding-menu/image/SlidingMenu.png" alt="">  </p>
+<h3 id="4-2-核心类功能介绍"><a href="#4-2-核心类功能介绍" class="headerlink" title="4.2 核心类功能介绍"></a>4.2 核心类功能介绍</h3><h4 id="4-2-1-SlidingMenu-java"><a href="#4-2-1-SlidingMenu-java" class="headerlink" title="4.2.1 SlidingMenu.java"></a>4.2.1 SlidingMenu.java</h4><p>继承自RelativeLayout，对外提供API，用于配置侧边栏的侧滑模式，触摸模式，阴影，渐变及滑动效果等。<br>构造器中可以看到主要初始化了mViewBehind，mViewAbove及一些属性。<br>主要看attachToActivity方法  </p>
+<pre><code>public void attachToActivity(Activity activity, int slideStyle, boolean actionbarOverlay) {
+    ...
+    ...
+    ViewGroup decor = (ViewGroup) activity.getWindow().getDecorView();
+    ViewGroup decorChild = (ViewGroup) decor.getChildAt(0);
+    // save ActionBar themes that have transparent assets
+    decorChild.setBackgroundResource(background);
+    decor.removeView(decorChild);
+    decor.addView(this);
+    setContent(decorChild);
+    break;
+    ...
+    ...
+}
+</code></pre><blockquote>
 <p>这里slideStyle选取SLIDING_WINDOW的case进行分析，可以看到主要是获取decorView，将decorView下面的decorChild(我们的根布局)移除，把SlidingMenu添加进来，把decorChild赋值给mViewAbove。<br>(SLIDING_CONTENT原理差不多)  </p>
 </blockquote>
-<p>SlidingMenu常用的属性设置：<br>// 设置侧边, 必须为LEFT(左边)，RIGHT(右边)，LEFT_RIGHT(左右两边)三者之一<br>public void setMode(int mode)<br>// 设置触摸方式，必须为TOUCHMODE_FULLSCREEN(全屏可触摸)，TOUCHMODE_MARGIN(边缘可触摸)，默认48dp, TOUCHMODE_NONE(不可触摸)三者之一<br>public void setTouchModeAbove(int i)<br>// 根据资源文件ID设置阴影部分的width<br>public void setShadowWidthRes(int resId)<br>// 根据资源文件ID设置阴影部分的效果<br>public void setShadowDrawable(int resId)<br>// 根据资源文件ID设置第二个侧边栏阴影部分的效果<br>public void setSecondaryShadowDrawable(int resId)<br>// 根据资源文件ID设置主界面距离屏幕的偏移量<br>public void setBehindOffsetRes(int resID)<br>// 设置fade in和fade out效果的值<br>public void setFadeDegree(float f)<br>// 设置滑动比例的值，范围为0-1之间<br>public void setBehindScrollScale(float f)<br>// 根据资源文件ID设置侧边栏布局<br>public void setMenu(int res)<br>// 根据View设置侧边栏布局<br>public void setMenu(View v)<br>// 根据资源文件ID设置第二个侧边栏布局<br>public void setSecondaryMenu(int res)<br>// 根据View设置第二个侧边栏布局<br>public void setSecondaryMenu(View v)<br>// 打开菜单<br>public void showMenu()<br>// 打开第二个菜单<br>public void showSecondaryMenu()<br>// SlidingMenu的开关<br>public void toggle()<br>// 检查侧边栏是否打开<br>public boolean isMenuShowing()<br>// 检查第二个侧边栏是否打开<br>public boolean isSecondaryMenuShowing()  </p>
-<p>####4.2.2 CustomViewAbove.java<br>继承自ViewGroup，主要用于处理touch事件。<br>事件处理流程图如下(暂不分析多点触控)：<br><img src="https://raw.githubusercontent.com/aosp-exchange-group/android-open-project-analysis/master/view/menu/sliding-menu/image/touch_event.jpg" alt="">  </p>
-<p>####4.2.3 CustomViewBehind.java<br>主要的属性  </p>
-<pre><code class="java"><span class="comment">/** 第一个侧边栏，一般为左边栏 */</span>  
-<span class="keyword">private</span> View mContent;
-<span class="comment">/** 第二个侧边栏，一般为右边栏 */</span>  
-<span class="keyword">private</span> View mSecondaryContent;  
-<span class="comment">/** 滑动侧边栏的最大临界值在设置TOUCHMODE_MARGIN起作用，默认48dp */</span>  
-<span class="keyword">private</span> <span class="keyword">int</span> mMarginThreshold;  
-<span class="comment">/** 侧边栏被滑出后，主界面留在屏幕上的offset */</span>  
-<span class="keyword">private</span> <span class="keyword">int</span> mWidthOffset;  
-<span class="comment">/** 有三个值可以选，LEFT/RIGHT/LEFT_RIGHT */</span>  
-<span class="keyword">private</span> <span class="keyword">int</span> mMode;  
-<span class="comment">/** 侧边栏在侧滑过程中是否需要fade动画效果 */</span>  
-<span class="keyword">private</span> <span class="keyword">boolean</span> mFadeEnabled;  
-<span class="comment">/** 定义滑动比例的值，范围0-1f */</span>  
-<span class="keyword">private</span> <span class="keyword">float</span> mScrollScale;  
-<span class="comment">/** 侧边栏滑出后的阴影部分，demo中用的是Gradient */</span>  
-<span class="keyword">private</span> Drawable mShadowDrawable;  
-<span class="comment">/** 同上，为第二个侧边栏的阴影部分 */</span>  
-<span class="keyword">private</span> Drawable mSecondaryShadowDrawable;  
-<span class="comment">/** 阴影部分的宽 */</span>  
-<span class="keyword">private</span> <span class="keyword">int</span> mShadowWidth;  
-<span class="comment">/** 侧边栏滑动过程中fade动画的值，范围0-1f */</span>  
-<span class="keyword">private</span> <span class="keyword">float</span> mFadeDegree;
-</code></pre>
-<p>在侧边栏滑动过程中, 通过回调CustomViewAbove的dispatchDraw方法画阴影部分和fade in/out效果。<br>// 画阴影部分<br>public void drawShadow(View content, Canvas canvas)<br>// 根据openPercent画fade in/out效果<br>public void drawFade(View content, Canvas canvas, float openPercent)  </p>
-<p>##5. 杂谈<br>关于selector drawable存在的一些不理解<br>SlidingMenu暴露几个关于selector drawable的API给用户, CustomViewBehind的drawSelector方法具体实现如下：  </p>
-<pre><code class="java"><span class="keyword">private</span> <span class="keyword">boolean</span> mSelectorEnabled = <span class="keyword">true</span>;  
-<span class="keyword">private</span> Bitmap mSelectorDrawable;  
-<span class="keyword">private</span> View mSelectedView;  
-<span class="keyword">if</span> (mSelectorDrawable != <span class="keyword">null</span> &amp;&amp; mSelectedView != <span class="keyword">null</span>) {
+<p>SlidingMenu常用的属性设置：<br>    // 设置侧边, 必须为LEFT(左边)，RIGHT(右边)，LEFT_RIGHT(左右两边)三者之一<br>    public void setMode(int mode)<br>    // 设置触摸方式，必须为TOUCHMODE_FULLSCREEN(全屏可触摸)，TOUCHMODE_MARGIN(边缘可触摸)，默认48dp, TOUCHMODE_NONE(不可触摸)三者之一<br>    public void setTouchModeAbove(int i)<br>    // 根据资源文件ID设置阴影部分的width<br>    public void setShadowWidthRes(int resId)<br>    // 根据资源文件ID设置阴影部分的效果<br>    public void setShadowDrawable(int resId)<br>    // 根据资源文件ID设置第二个侧边栏阴影部分的效果<br>    public void setSecondaryShadowDrawable(int resId)<br>    // 根据资源文件ID设置主界面距离屏幕的偏移量<br>    public void setBehindOffsetRes(int resID)<br>    // 设置fade in和fade out效果的值<br>    public void setFadeDegree(float f)<br>    // 设置滑动比例的值，范围为0-1之间<br>    public void setBehindScrollScale(float f)<br>    // 根据资源文件ID设置侧边栏布局<br>    public void setMenu(int res)<br>    // 根据View设置侧边栏布局<br>    public void setMenu(View v)<br>    // 根据资源文件ID设置第二个侧边栏布局<br>    public void setSecondaryMenu(int res)<br>    // 根据View设置第二个侧边栏布局<br>    public void setSecondaryMenu(View v)<br>    // 打开菜单<br>    public void showMenu()<br>    // 打开第二个菜单<br>    public void showSecondaryMenu()<br>    // SlidingMenu的开关<br>    public void toggle()<br>    // 检查侧边栏是否打开<br>    public boolean isMenuShowing()<br>    // 检查第二个侧边栏是否打开<br>    public boolean isSecondaryMenuShowing()  </p>
+<h4 id="4-2-2-CustomViewAbove-java"><a href="#4-2-2-CustomViewAbove-java" class="headerlink" title="4.2.2 CustomViewAbove.java"></a>4.2.2 CustomViewAbove.java</h4><p>继承自ViewGroup，主要用于处理touch事件。<br>事件处理流程图如下(暂不分析多点触控)：<br><img src="https://raw.githubusercontent.com/aosp-exchange-group/android-open-project-analysis/master/view/menu/sliding-menu/image/touch_event.jpg" alt="">  </p>
+<h4 id="4-2-3-CustomViewBehind-java"><a href="#4-2-3-CustomViewBehind-java" class="headerlink" title="4.2.3 CustomViewBehind.java"></a>4.2.3 CustomViewBehind.java</h4><p>主要的属性  </p>
+<pre><code>/** 第一个侧边栏，一般为左边栏 */  
+private View mContent;
+/** 第二个侧边栏，一般为右边栏 */  
+private View mSecondaryContent;  
+/** 滑动侧边栏的最大临界值在设置TOUCHMODE_MARGIN起作用，默认48dp */  
+private int mMarginThreshold;  
+/** 侧边栏被滑出后，主界面留在屏幕上的offset */  
+private int mWidthOffset;  
+/** 有三个值可以选，LEFT/RIGHT/LEFT_RIGHT */  
+private int mMode;  
+/** 侧边栏在侧滑过程中是否需要fade动画效果 */  
+private boolean mFadeEnabled;  
+/** 定义滑动比例的值，范围0-1f */  
+private float mScrollScale;  
+/** 侧边栏滑出后的阴影部分，demo中用的是Gradient */  
+private Drawable mShadowDrawable;  
+/** 同上，为第二个侧边栏的阴影部分 */  
+private Drawable mSecondaryShadowDrawable;  
+/** 阴影部分的宽 */  
+private int mShadowWidth;  
+/** 侧边栏滑动过程中fade动画的值，范围0-1f */  
+private float mFadeDegree;  
+</code></pre><p>在侧边栏滑动过程中, 通过回调CustomViewAbove的dispatchDraw方法画阴影部分和fade in/out效果。<br>// 画阴影部分<br>public void drawShadow(View content, Canvas canvas)<br>// 根据openPercent画fade in/out效果<br>public void drawFade(View content, Canvas canvas, float openPercent)  </p>
+<h2 id="5-杂谈"><a href="#5-杂谈" class="headerlink" title="5. 杂谈"></a>5. 杂谈</h2><p>关于selector drawable存在的一些不理解<br>SlidingMenu暴露几个关于selector drawable的API给用户, CustomViewBehind的drawSelector方法具体实现如下：  </p>
+<pre><code>private boolean mSelectorEnabled = true;  
+private Bitmap mSelectorDrawable;  
+private View mSelectedView;  
+if (mSelectorDrawable != null &amp;&amp; mSelectedView != null) {
     canvas.save();
     ...
-    <span class="keyword">if</span> (mMode == SlidingMenu.LEFT) {
+    if (mMode == SlidingMenu.LEFT) {
         ...
-        canvas.drawBitmap(mSelectorDrawable, left, getSelectorTop(), <span class="keyword">null</span>);     
-    } <span class="keyword">else</span> <span class="keyword">if</span> (mMode == SlidingMenu.RIGHT) {
+        canvas.drawBitmap(mSelectorDrawable, left, getSelectorTop(), null);     
+    } else if (mMode == SlidingMenu.RIGHT) {
         ...
-        canvas.drawBitmap(mSelectorDrawable, right - mSelectorDrawable.getWidth(), getSelectorTop(), <span class="keyword">null</span>);
+        canvas.drawBitmap(mSelectorDrawable, right - mSelectorDrawable.getWidth(), getSelectorTop(), null);
     }
     canvas.restore();
 }
-</code></pre>
-<p>其中canvas.drawBitmap时传入的paint为null，mSelectedView除了做判断外并没有看到实际使用<br>根据它代码中clip出来的矩形(在滑动时主界面的左边部分)画bitmap对象，想不出其使用的场景在哪里，也想不出当时作者想到了什么才写下了这个方法，并提供API给用户。  </p>
+</code></pre><p>其中canvas.drawBitmap时传入的paint为null，mSelectedView除了做判断外并没有看到实际使用<br>根据它代码中clip出来的矩形(在滑动时主界面的左边部分)画bitmap对象，想不出其使用的场景在哪里，也想不出当时作者想到了什么才写下了这个方法，并提供API给用户。  </p>
 
       
     </div>
@@ -510,7 +520,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-功能介绍"><span class="nav-number">1.</span> <span class="nav-text">1. 功能介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-总体设计"><span class="nav-number">2.</span> <span class="nav-text">2. 总体设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-流程图"><span class="nav-number">3.</span> <span class="nav-text">3. 流程图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-详细设计"><span class="nav-number">4.</span> <span class="nav-text">4. 详细设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-类关系图"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 类关系图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-核心类功能介绍"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 核心类功能介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-SlidingMenu-java"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.2.1 SlidingMenu.java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-CustomViewAbove-java"><span class="nav-number">4.2.2.</span> <span class="nav-text">4.2.2 CustomViewAbove.java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-3-CustomViewBehind-java"><span class="nav-number">4.2.3.</span> <span class="nav-text">4.2.3 CustomViewBehind.java</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-杂谈"><span class="nav-number">5.</span> <span class="nav-text">5. 杂谈</span></a></li></ol></div>
             
           </div>
         </section>

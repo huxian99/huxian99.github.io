@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://yoursite.com/2015/03/16/自定义控件-自动滚动的ImageView/index.html">
 <meta property="og:site_name" content="弧线">
 <meta property="og:description" content="最开始希望可以做一个自己循环滚动的ImageView，就像一个画廊一样充满美感，可惜最终没有实现，所以只能另辟蹊径，希望通过自定义ViewGroup添加两个ImageView，重复做translation动画来实现这个效果。下面是源码：">
-<meta property="og:updated_time" content="2015-06-06T06:21:18.000Z">
+<meta property="og:updated_time" content="2016-07-18T15:53:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自定义控件 循环滚动的ImageView">
 <meta name="twitter:description" content="最开始希望可以做一个自己循环滚动的ImageView，就像一个画廊一样充满美感，可惜最终没有实现，所以只能另辟蹊径，希望通过自定义ViewGroup添加两个ImageView，重复做translation动画来实现这个效果。下面是源码：">
@@ -295,8 +295,148 @@
       
 
       
-        <p>最开始希望可以做一个自己循环滚动的ImageView，就像一个画廊一样充满美感，可惜最终没有实现，所以只能另辟蹊径，希望通过自定义ViewGroup添加两个ImageView，重复做translation动画来实现这个效果。下面是源码：<br><a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.huxian.view;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.animation.Animator;</span><br><span class="line"><span class="keyword">import</span> android.animation.Animator.AnimatorListener;</span><br><span class="line"><span class="keyword">import</span> android.animation.AnimatorSet;</span><br><span class="line"><span class="keyword">import</span> android.animation.ObjectAnimator;</span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.util.AttributeSet;</span><br><span class="line"><span class="keyword">import</span> android.view.ViewGroup;</span><br><span class="line"><span class="keyword">import</span> android.view.animation.LinearInterpolator;</span><br><span class="line"><span class="keyword">import</span> android.widget.ImageView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoScrollImageView</span> <span class="keyword">extends</span> <span class="title">ViewGroup</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ORIENTATION_LEFT = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ORIENTATION_RIGHT = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> ANIM_DURATION = <span class="number">3000</span>;</span><br><span class="line">    <span class="keyword">private</span> ImageView imageView1;</span><br><span class="line">    <span class="keyword">private</span> ImageView imageView2;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> width = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> height = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> translationX = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isPlaying = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> orientation = ORIENTATION_LEFT;</span><br><span class="line">    <span class="keyword">private</span> AnimatorSet set;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AutoScrollImageView</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AutoScrollImageView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context, attrs, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AutoScrollImageView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyle)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs, defStyle);</span><br><span class="line">        imageView1 = <span class="keyword">new</span> ImageView(context);</span><br><span class="line">        addView(imageView1);</span><br><span class="line">        imageView2 = <span class="keyword">new</span> ImageView(context);</span><br><span class="line">        addView(imageView2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">(<span class="keyword">int</span> resId1, <span class="keyword">int</span> resId2, <span class="keyword">int</span> orientation)</span> </span>&#123;</span><br><span class="line">        imageView1.setImageResource(resId1);</span><br><span class="line">        imageView2.setImageResource(resId2);</span><br><span class="line">        <span class="keyword">this</span>.orientation = orientation;</span><br><span class="line">        isPlaying = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">startAnim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!isPlaying) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (set != <span class="keyword">null</span>) &#123;</span><br><span class="line">            set.cancel();</span><br><span class="line">            set = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (orientation == ORIENTATION_LEFT) &#123;</span><br><span class="line">            translationX = -width;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (orientation == ORIENTATION_RIGHT) &#123;</span><br><span class="line">            translationX = width;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        LinearInterpolator interpolator = <span class="keyword">new</span> LinearInterpolator();</span><br><span class="line">        AnimatorSet animatorSet1 = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line">        Animator anim11 = ObjectAnimator.ofFloat(imageView1, <span class="string">"translationX"</span>, <span class="number">0</span>, translationX);</span><br><span class="line">        anim11.setDuration(ANIM_DURATION);</span><br><span class="line">        anim11.setInterpolator(interpolator);</span><br><span class="line"></span><br><span class="line">        Animator anim12 = ObjectAnimator.ofFloat(imageView1, <span class="string">"translationX"</span>, -translationX, <span class="number">0</span>);</span><br><span class="line">        anim12.setDuration(ANIM_DURATION);</span><br><span class="line">        anim12.setInterpolator(interpolator);</span><br><span class="line">        animatorSet1.playSequentially(anim11, anim12);</span><br><span class="line"></span><br><span class="line">        AnimatorSet animatorSet2 = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line">        Animator anim21 = ObjectAnimator.ofFloat(imageView2, <span class="string">"translationX"</span>, -translationX, <span class="number">0</span>);</span><br><span class="line">        anim21.setDuration(ANIM_DURATION);</span><br><span class="line">        anim21.setInterpolator(interpolator);</span><br><span class="line"></span><br><span class="line">        Animator anim22 = ObjectAnimator.ofFloat(imageView2, <span class="string">"translationX"</span>, <span class="number">0</span>, translationX);</span><br><span class="line">        anim22.setDuration(ANIM_DURATION);</span><br><span class="line">        anim22.setInterpolator(interpolator);</span><br><span class="line">        animatorSet2.playSequentially(anim21, anim22);</span><br><span class="line"></span><br><span class="line">        set = <span class="keyword">new</span> AnimatorSet();</span><br><span class="line">        set.playTogether(animatorSet1, animatorSet2);</span><br><span class="line">        set.start();</span><br><span class="line">        set.addListener(<span class="keyword">new</span> AnimatorListener() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationStart</span><span class="params">(Animator animation)</span> </span>&#123;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationRepeat</span><span class="params">(Animator animation)</span> </span>&#123;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animator animation)</span> </span>&#123;</span><br><span class="line">                    animation.start();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationCancel</span><span class="params">(Animator animation)</span> </span>&#123;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stopAnim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        isPlaying = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (set != <span class="keyword">null</span>) &#123;</span><br><span class="line">            set.cancel();</span><br><span class="line">            set = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onMeasure(widthMeasureSpec, heightMeasureSpec);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> widthSize = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">        height = (<span class="keyword">int</span>) (widthSize / <span class="number">4.5</span>);</span><br><span class="line">        width = height * <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> heightSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);</span><br><span class="line">        measureChildren(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), heightSpec);</span><br><span class="line">        setMeasuredDimension(widthMeasureSpec, heightSpec);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onLayout</span><span class="params">(<span class="keyword">boolean</span> changed, <span class="keyword">int</span> l, <span class="keyword">int</span> t, <span class="keyword">int</span> r, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        imageView1.layout(<span class="number">0</span>, <span class="number">0</span>, width, height);</span><br><span class="line">        imageView2.layout(<span class="number">0</span>, <span class="number">0</span>, width, height);</span><br><span class="line">        startAnim();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">调用的时候只需要传入两个宽高比是<span class="number">7</span>:<span class="number">1</span>的资源图片以及定义好滚动的方向就好了，也可以根据需求去修改onMeasure中的部分测量代码，比较简单，就暂时不考虑扩展了。</span><br><span class="line">调用的代码如下：  </span><br><span class="line">```java</span><br><span class="line">asiv = (AutoScrollImageView) findViewById(R.id.asiv);</span><br><span class="line">asiv.play(R.drawable.bk1, R.drawable.bk2, AutoScrollImageView.ORIENTATION_LEFT);</span><br></pre></td></tr></table></figure></p>
+        <p>最开始希望可以做一个自己循环滚动的ImageView，就像一个画廊一样充满美感，可惜最终没有实现，所以只能另辟蹊径，希望通过自定义ViewGroup添加两个ImageView，重复做translation动画来实现这个效果。下面是源码：<br><a id="more"></a></p>
+<pre><code>package com.huxian.view;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
+
+public class AutoScrollImageView extends ViewGroup {
+    public static final int ORIENTATION_LEFT = 1;
+    public static final int ORIENTATION_RIGHT = 2;
+    private final int ANIM_DURATION = 3000;
+    private ImageView imageView1;
+    private ImageView imageView2;
+    private int width = 0;
+    private int height = 0;
+    private int translationX = 0;
+    private boolean isPlaying = false;
+    private int orientation = ORIENTATION_LEFT;
+    private AnimatorSet set;
+
+    public AutoScrollImageView(Context context) {
+        this(context, null);
+    }
+
+    public AutoScrollImageView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public AutoScrollImageView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        imageView1 = new ImageView(context);
+        addView(imageView1);
+        imageView2 = new ImageView(context);
+        addView(imageView2);
+    }
+
+    public void play(int resId1, int resId2, int orientation) {
+        imageView1.setImageResource(resId1);
+        imageView2.setImageResource(resId2);
+        this.orientation = orientation;
+        isPlaying = true;
+    }
+
+    private void startAnim() {
+        if (!isPlaying) {
+            return;
+        }
+
+        if (set != null) {
+            set.cancel();
+            set = null;
+        }
+
+        if (orientation == ORIENTATION_LEFT) {
+            translationX = -width;
+        } else if (orientation == ORIENTATION_RIGHT) {
+            translationX = width;
+        }
+
+        LinearInterpolator interpolator = new LinearInterpolator();
+        AnimatorSet animatorSet1 = new AnimatorSet();
+        Animator anim11 = ObjectAnimator.ofFloat(imageView1, &quot;translationX&quot;, 0, translationX);
+        anim11.setDuration(ANIM_DURATION);
+        anim11.setInterpolator(interpolator);
+
+        Animator anim12 = ObjectAnimator.ofFloat(imageView1, &quot;translationX&quot;, -translationX, 0);
+        anim12.setDuration(ANIM_DURATION);
+        anim12.setInterpolator(interpolator);
+        animatorSet1.playSequentially(anim11, anim12);
+
+        AnimatorSet animatorSet2 = new AnimatorSet();
+        Animator anim21 = ObjectAnimator.ofFloat(imageView2, &quot;translationX&quot;, -translationX, 0);
+        anim21.setDuration(ANIM_DURATION);
+        anim21.setInterpolator(interpolator);
+
+        Animator anim22 = ObjectAnimator.ofFloat(imageView2, &quot;translationX&quot;, 0, translationX);
+        anim22.setDuration(ANIM_DURATION);
+        anim22.setInterpolator(interpolator);
+        animatorSet2.playSequentially(anim21, anim22);
+
+        set = new AnimatorSet();
+        set.playTogether(animatorSet1, animatorSet2);
+        set.start();
+        set.addListener(new AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    animation.start();
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                }
+            });
+    }
+
+    public void stopAnim() {
+        isPlaying = false;
+
+        if (set != null) {
+            set.cancel();
+            set = null;
+        }
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        height = (int) (widthSize / 4.5);
+        width = height * 7;
+
+        int heightSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+        measureChildren(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), heightSpec);
+        setMeasuredDimension(widthMeasureSpec, heightSpec);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        imageView1.layout(0, 0, width, height);
+        imageView2.layout(0, 0, width, height);
+        startAnim();
+    }
+}
+</code></pre><p>调用的时候只需要传入两个宽高比是7:1的资源图片以及定义好滚动的方向就好了，也可以根据需求去修改onMeasure中的部分测量代码，比较简单，就暂时不考虑扩展了。<br>调用的代码如下：  </p>
+<pre><code>asiv = (AutoScrollImageView) findViewById(R.id.asiv);
+asiv.play(R.drawable.bk1, R.drawable.bk2, AutoScrollImageView.ORIENTATION_LEFT);
+</code></pre>
       
     </div>
 

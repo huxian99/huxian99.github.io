@@ -84,17 +84,17 @@
 
 
 
-<meta name="description" content="###命令模式定义：将“请求”封装成对象，以便使用不同的请求、队列或者日志来参数化其他对象。命令模式也支持可撤销的操作。">
+<meta name="description" content="命令模式定义：将“请求”封装成对象，以便使用不同的请求、队列或者日志来参数化其他对象。命令模式也支持可撤销的操作。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式之命令模式(Command)">
 <meta property="og:url" content="http://yoursite.com/2015/06/03/设计模式之命令模式-Command/index.html">
 <meta property="og:site_name" content="弧线">
-<meta property="og:description" content="###命令模式定义：将“请求”封装成对象，以便使用不同的请求、队列或者日志来参数化其他对象。命令模式也支持可撤销的操作。">
+<meta property="og:description" content="命令模式定义：将“请求”封装成对象，以便使用不同的请求、队列或者日志来参数化其他对象。命令模式也支持可撤销的操作。">
 <meta property="og:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/Command.png">
-<meta property="og:updated_time" content="2015-06-06T06:19:50.000Z">
+<meta property="og:updated_time" content="2016-07-18T15:10:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式之命令模式(Command)">
-<meta name="twitter:description" content="###命令模式定义：将“请求”封装成对象，以便使用不同的请求、队列或者日志来参数化其他对象。命令模式也支持可撤销的操作。">
+<meta name="twitter:description" content="命令模式定义：将“请求”封装成对象，以便使用不同的请求、队列或者日志来参数化其他对象。命令模式也支持可撤销的操作。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/Command.png">
 
 
@@ -297,15 +297,14 @@
       
 
       
-        <p>###命令模式定义：<br>将“请求”封装成对象，以便使用不同的请求、队列或者日志来参数化其他对象。命令模式也支持可撤销的操作。<br><a id="more"></a></p>
-<p>###UML类图：<br><img src="https://raw.githubusercontent.com/huxian99/git/master/image/Command.png" alt="">  </p>
-<p>###使用场景：</p>
-<ol>
+        <h3 id="命令模式定义："><a href="#命令模式定义：" class="headerlink" title="命令模式定义："></a>命令模式定义：</h3><p>将“请求”封装成对象，以便使用不同的请求、队列或者日志来参数化其他对象。命令模式也支持可撤销的操作。<br><a id="more"></a></p>
+<h3 id="UML类图："><a href="#UML类图：" class="headerlink" title="UML类图："></a>UML类图：</h3><p><img src="https://raw.githubusercontent.com/huxian99/git/master/image/Command.png" alt="">  </p>
+<h3 id="使用场景："><a href="#使用场景：" class="headerlink" title="使用场景："></a>使用场景：</h3><ol>
 <li>需要将发出请求的对象和执行请求的对象解耦。  </li>
 <li>需要支持撤销操作(undo)和恢复操作(redo)。  </li>
 <li>需要调用多个命令，即宏命令。  </li>
 </ol>
-<p>###简单Demo：<br>辛苦工作了几年之后，你和女朋友终于买了房子，在上海这座原本不属于你们的城市。你们很兴奋，高兴，因为终于有了一个属于你们自己温馨的家，哪怕它是那么的小。于是你们大肆采购家具，冰箱，电灯，热水器，空调，电视机等等，花钱如流水一般，却也无比的开心。把一切安装好了，开始了你们幸福的生活。可是过了几天之后，一切都不那么顺，比如我想要洗热水澡，但是必须要跑去按下开关，调温度，又比如夏天来了，空调那么冷，但还是要先找到空调的遥控器去调整，再比如晚上准备和女朋友睡觉了，还要去关灯，关电视，关电脑。怎么这么烦。 于是乎，你想到了能不能做一个遥控器，做一个统一的命令管理。<br>未来可能会有的问题：  </p>
+<h3 id="简单Demo："><a href="#简单Demo：" class="headerlink" title="简单Demo："></a>简单Demo：</h3><p>辛苦工作了几年之后，你和女朋友终于买了房子，在上海这座原本不属于你们的城市。你们很兴奋，高兴，因为终于有了一个属于你们自己温馨的家，哪怕它是那么的小。于是你们大肆采购家具，冰箱，电灯，热水器，空调，电视机等等，花钱如流水一般，却也无比的开心。把一切安装好了，开始了你们幸福的生活。可是过了几天之后，一切都不那么顺，比如我想要洗热水澡，但是必须要跑去按下开关，调温度，又比如夏天来了，空调那么冷，但还是要先找到空调的遥控器去调整，再比如晚上准备和女朋友睡觉了，还要去关灯，关电视，关电脑。怎么这么烦。 于是乎，你想到了能不能做一个遥控器，做一个统一的命令管理。<br>未来可能会有的问题：  </p>
 <ol>
 <li>因为未来可能还要买、买、买！所以这个遥控器必须是可以扩展。  </li>
 <li>如果不小心误操作了，最好还能撤销操作。  </li>
@@ -472,7 +471,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令模式定义："><span class="nav-number">1.</span> <span class="nav-text">命令模式定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UML类图："><span class="nav-number">2.</span> <span class="nav-text">UML类图：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景："><span class="nav-number">3.</span> <span class="nav-text">使用场景：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单Demo："><span class="nav-number">4.</span> <span class="nav-text">简单Demo：</span></a></li></ol></div>
             
           </div>
         </section>

@@ -84,17 +84,17 @@
 
 
 
-<meta name="description" content="###迭代器模式定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。">
+<meta name="description" content="迭代器模式定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式之迭代器模式(Iterator)">
 <meta property="og:url" content="http://yoursite.com/2015/06/14/设计模式之迭代器模式-Iterator/index.html">
 <meta property="og:site_name" content="弧线">
-<meta property="og:description" content="###迭代器模式定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。">
+<meta property="og:description" content="迭代器模式定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。">
 <meta property="og:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/Iterator.png">
-<meta property="og:updated_time" content="2015-06-14T09:38:03.000Z">
+<meta property="og:updated_time" content="2016-07-18T15:09:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式之迭代器模式(Iterator)">
-<meta name="twitter:description" content="###迭代器模式定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。">
+<meta name="twitter:description" content="迭代器模式定义：提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/Iterator.png">
 
 
@@ -297,11 +297,11 @@
       
 
       
-        <p>###迭代器模式定义：<br>提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。<br><a id="more"></a></p>
-<p>###UML类图：<br><img src="https://raw.githubusercontent.com/huxian99/git/master/image/Iterator.png" alt="">  </p>
-<p>###使用场景：<br>需要将遍历聚合的工作封装进一个对象时。  </p>
-<p>###简单Demo：<br>参考java.util.Iterator  </p>
-<p>###单一责任原则：<br>一个类应该只有一个引起变化的原因  </p>
+        <h3 id="迭代器模式定义："><a href="#迭代器模式定义：" class="headerlink" title="迭代器模式定义："></a>迭代器模式定义：</h3><p>提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。<br><a id="more"></a></p>
+<h3 id="UML类图："><a href="#UML类图：" class="headerlink" title="UML类图："></a>UML类图：</h3><p><img src="https://raw.githubusercontent.com/huxian99/git/master/image/Iterator.png" alt="">  </p>
+<h3 id="使用场景："><a href="#使用场景：" class="headerlink" title="使用场景："></a>使用场景：</h3><p>需要将遍历聚合的工作封装进一个对象时。  </p>
+<h3 id="简单Demo："><a href="#简单Demo：" class="headerlink" title="简单Demo："></a>简单Demo：</h3><p>参考java.util.Iterator  </p>
+<h3 id="单一责任原则："><a href="#单一责任原则：" class="headerlink" title="单一责任原则："></a>单一责任原则：</h3><p>一个类应该只有一个引起变化的原因  </p>
 <p>当我们允许一个类不但要完成自己的事情（管理某种聚合），还同时要担负更多的责任（例如遍历）时，我们就给了这个类两个变化的原因。这违反了单一责任原则，如果类有过多的可改变区域，当修改代码时也就意味着更多潜在可能的错误。<br>迭代器模式分离了集合对象的遍历行为，抽象出一个迭代器类，这样既可以做到不暴露集合的内部结构，又可让外部代码透明的访问集合内部的数据。  </p>
 
       
@@ -460,7 +460,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器模式定义："><span class="nav-number">1.</span> <span class="nav-text">迭代器模式定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UML类图："><span class="nav-number">2.</span> <span class="nav-text">UML类图：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景："><span class="nav-number">3.</span> <span class="nav-text">使用场景：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单Demo："><span class="nav-number">4.</span> <span class="nav-text">简单Demo：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单一责任原则："><span class="nav-number">5.</span> <span class="nav-text">单一责任原则：</span></a></li></ol></div>
             
           </div>
         </section>
