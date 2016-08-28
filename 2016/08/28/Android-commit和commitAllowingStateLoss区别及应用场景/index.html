@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="做 Android 开发避免不了和fragment打交道，很多 App 的首页也基本都是几个fragment搭配出来的。1234567FragmentManager fm = getFragmentManager();testFragment = (TestFragment) fm.findFragmentById(R.id.fragment_container);if (testFragment">
+<meta name="description" content="做 Android 开发避免不了和fragment打交道，很多 App 的首页也基本都是几个fragment搭配出来的。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android commit和commitAllowingStateLoss区别及应用场景">
 <meta property="og:url" content="http://yoursite.com/2016/08/28/Android-commit和commitAllowingStateLoss区别及应用场景/index.html">
 <meta property="og:site_name" content="弧线">
-<meta property="og:description" content="做 Android 开发避免不了和fragment打交道，很多 App 的首页也基本都是几个fragment搭配出来的。1234567FragmentManager fm = getFragmentManager();testFragment = (TestFragment) fm.findFragmentById(R.id.fragment_container);if (testFragment">
-<meta property="og:updated_time" content="2016-08-28T12:37:24.000Z">
+<meta property="og:description" content="做 Android 开发避免不了和fragment打交道，很多 App 的首页也基本都是几个fragment搭配出来的。">
+<meta property="og:updated_time" content="2016-08-28T12:41:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android commit和commitAllowingStateLoss区别及应用场景">
-<meta name="twitter:description" content="做 Android 开发避免不了和fragment打交道，很多 App 的首页也基本都是几个fragment搭配出来的。1234567FragmentManager fm = getFragmentManager();testFragment = (TestFragment) fm.findFragmentById(R.id.fragment_container);if (testFragment">
+<meta name="twitter:description" content="做 Android 开发避免不了和fragment打交道，很多 App 的首页也基本都是几个fragment搭配出来的。">
 
 
 
@@ -276,7 +276,7 @@
       
 
       
-        <p>做 Android 开发避免不了和fragment打交道，很多 App 的首页也基本都是几个fragment搭配出来的。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FragmentManager fm = getFragmentManager();</span><br><span class="line">testFragment = (TestFragment) fm.findFragmentById(R.id.fragment_container);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (testFragment == <span class="keyword">null</span>) &#123;</span><br><span class="line">    testFragment = <span class="keyword">new</span> TestFragment();</span><br><span class="line">    fm.beginTransaction().add(R.id.fragment_container, testFragment).commit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <p>做 Android 开发避免不了和fragment打交道，很多 App 的首页也基本都是几个fragment搭配出来的。<br><a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FragmentManager fm = getFragmentManager();</span><br><span class="line">testFragment = (TestFragment) fm.findFragmentById(R.id.fragment_container);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (testFragment == <span class="keyword">null</span>) &#123;</span><br><span class="line">    testFragment = <span class="keyword">new</span> TestFragment();</span><br><span class="line">    fm.beginTransaction().add(R.id.fragment_container, testFragment).commit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这段代码我们经常写，会很熟悉。但有时我们可能会碰到一个异常，信息如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Caused by: java.lang.IllegalStateException: Can not perform <span class="keyword">this</span> action after onSaveInstanceState</span><br></pre></td></tr></table></figure></p>
 <p>大意是在activity的onSaveInstanceState调用过后，再commit的Transaction导致的异常。一些小伙伴建议用commitAllowingStateLoss来代替commit，那么commit和commitAllowingStateLoss有什么区别呢？查看下相关的代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">commit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> commitInternal(<span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">commitAllowingStateLoss</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> commitInternal(<span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>发现他们都是调用了commitInternal()方法，只是一个传了false，一个传了true，接着往下看：  </p>
