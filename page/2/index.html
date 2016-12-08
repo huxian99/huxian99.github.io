@@ -248,7 +248,110 @@
             
               
                 
-                <a class="post-title-link" href="/2015/09/15/ciuwgxk55000psixkgua2rtvq/" itemprop="url">
+                <a class="post-title-link" href="/2015/09/17/ciwgbt29500099kxk275udwqv/" itemprop="url">
+                  Android 在线热修复框架AndFix
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-09-17T22:22:58+08:00" content="2015-09-17">
+              2015-09-17
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/09/17/ciwgbt29500099kxk275udwqv/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/17/ciwgbt29500099kxk275udwqv/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>支付宝的小伙伴们前两天刚刚开源了一个在线热补丁框架AndFix。它能帮助Android开发者去修复<code>在线的bug</code>。现在支持Android2.3到6.0，arm和x86架构的cpu，以及dalvik运行时和art运行时。<br>看了看原理图，将有bug的方法B检查出来，修复这个方法B，通过apkpatch工具找出两个dex之间的区别生成.apatch文件 然后将补丁替换上去。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/09/17/ciwgbt29500099kxk275udwqv/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/09/15/ciwgbt29j000j9kxkcoiu7ciq/" itemprop="url">
                   Android内存泄漏－单例持有context
                 </a>
               
@@ -273,8 +376,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/09/15/ciuwgxk55000psixkgua2rtvq/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/15/ciuwgxk55000psixkgua2rtvq/" itemprop="commentsCount"></span>
+                <a href="/2015/09/15/ciwgbt29j000j9kxkcoiu7ciq/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/15/ciwgbt29j000j9kxkcoiu7ciq/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -300,7 +403,7 @@
         
           <p>在Android开发中Singleton是我们经常用的一种设计模式，它有诸多的优点，对于new性能消耗较大的类只实例化一次可以提高性能，但如果使用不当也有可能导致内存泄漏。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/09/15/ciuwgxk55000psixkgua2rtvq/#more" rel="contents">
+            <a class="btn" href="/2015/09/15/ciwgbt29j000j9kxkcoiu7ciq/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -351,7 +454,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/09/15/ciuwgxk4r000hsixk7is50fyt/" itemprop="url">
+                <a class="post-title-link" href="/2015/09/15/ciwgbt29n000p9kxk7bgf45n8/" itemprop="url">
                   Android内存泄漏－AsyncTask的不正确使用
                 </a>
               
@@ -376,8 +479,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/09/15/ciuwgxk4r000hsixk7is50fyt/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/15/ciuwgxk4r000hsixk7is50fyt/" itemprop="commentsCount"></span>
+                <a href="/2015/09/15/ciwgbt29n000p9kxk7bgf45n8/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/15/ciwgbt29n000p9kxk7bgf45n8/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -403,7 +506,7 @@
         
           <p>AsyncTask不正确使用造成的内存泄漏和Handler原理差不多，但还是单独写篇文章来纪念一下这个坑，因为开发者文档里面用的就是用非静态内部类，这个非静态内部类会隐式地持有外部类的引用，如果其生命周期大于外部activity的生命周期，就有可能导致内存泄漏。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/09/15/ciuwgxk4r000hsixk7is50fyt/#more" rel="contents">
+            <a class="btn" href="/2015/09/15/ciwgbt29n000p9kxk7bgf45n8/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -454,7 +557,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/09/14/ciuwgxk4v000ksixkzlch65kf/" itemprop="url">
+                <a class="post-title-link" href="/2015/09/14/ciwgbt29l000l9kxkk20oqsos/" itemprop="url">
                   Android内存泄漏－Handler的不正确使用
                 </a>
               
@@ -479,8 +582,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/09/14/ciuwgxk4v000ksixkzlch65kf/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/14/ciuwgxk4v000ksixkzlch65kf/" itemprop="commentsCount"></span>
+                <a href="/2015/09/14/ciwgbt29l000l9kxkk20oqsos/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/14/ciwgbt29l000l9kxkk20oqsos/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -506,7 +609,7 @@
         
           <p>在开发应用中，Handler的使用是非常常见的，但如果不能正确的使用，就有可能造成内存泄漏，甚至内存溢出(OOM)。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/09/14/ciuwgxk4v000ksixkzlch65kf/#more" rel="contents">
+            <a class="btn" href="/2015/09/14/ciwgbt29l000l9kxkk20oqsos/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -557,7 +660,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/08/30/ciuwgxk50000nsixklfu8yabk/" itemprop="url">
+                <a class="post-title-link" href="/2015/08/30/ciwgbt29p000r9kxke9ie5fwe/" itemprop="url">
                   Java Annotation注解
                 </a>
               
@@ -582,8 +685,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/08/30/ciuwgxk50000nsixklfu8yabk/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/30/ciuwgxk50000nsixklfu8yabk/" itemprop="commentsCount"></span>
+                <a href="/2015/08/30/ciwgbt29p000r9kxke9ie5fwe/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/30/ciwgbt29p000r9kxke9ie5fwe/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -609,7 +712,7 @@
         
           <p>最近在看Dagger2，里面用到了很多注解，提高了开发效率的同时，也并没有使用发射去过多的消耗性能，所以准备尝试使用这开源框架。在使用Dagger2之前，还是简单的学习总结一下Annotation，因为很多知名的开源库都用到它去简化代码，比如Retrofit，ButterKnife, 还有JavaEE的Spring等等。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/08/30/ciuwgxk50000nsixklfu8yabk/#more" rel="contents">
+            <a class="btn" href="/2015/08/30/ciwgbt29p000r9kxke9ie5fwe/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -660,7 +763,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/06/22/ciuwgxk6h001vsixkz8oaxo1o/" itemprop="url">
+                <a class="post-title-link" href="/2015/06/22/ciwgbt2ar001v9kxk6b0tepwe/" itemprop="url">
                   设计模式之状态模式(State)
                 </a>
               
@@ -704,8 +807,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/06/22/ciuwgxk6h001vsixkz8oaxo1o/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/22/ciuwgxk6h001vsixkz8oaxo1o/" itemprop="commentsCount"></span>
+                <a href="/2015/06/22/ciwgbt2ar001v9kxk6b0tepwe/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/22/ciwgbt2ar001v9kxk6b0tepwe/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -731,7 +834,7 @@
         
           <h3 id="状态模式定义："><a href="#状态模式定义：" class="headerlink" title="状态模式定义："></a>状态模式定义：</h3><p>允许对象在内部状态改变时改变它的行为，对象看起来好像修改了它的类。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/06/22/ciuwgxk6h001vsixkz8oaxo1o/#more" rel="contents">
+            <a class="btn" href="/2015/06/22/ciwgbt2ar001v9kxk6b0tepwe/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -782,7 +885,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/06/16/ciuwgxk6k001ysixkoacjxq9g/" itemprop="url">
+                <a class="post-title-link" href="/2015/06/16/ciwgbt2aq001s9kxkzsqbyjbn/" itemprop="url">
                   设计模式之组合模式(Composite)
                 </a>
               
@@ -826,8 +929,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/06/16/ciuwgxk6k001ysixkoacjxq9g/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/16/ciuwgxk6k001ysixkoacjxq9g/" itemprop="commentsCount"></span>
+                <a href="/2015/06/16/ciwgbt2aq001s9kxkzsqbyjbn/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/16/ciwgbt2aq001s9kxkzsqbyjbn/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -853,7 +956,7 @@
         
           <h3 id="组合模式定义："><a href="#组合模式定义：" class="headerlink" title="组合模式定义："></a>组合模式定义：</h3><p>允许你将对象组合成树形结构来表现“整体/部分”层次结构。组合能让客户以一致的方式处理个别对象以及对象组合。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/06/16/ciuwgxk6k001ysixkoacjxq9g/#more" rel="contents">
+            <a class="btn" href="/2015/06/16/ciwgbt2aq001s9kxkzsqbyjbn/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -904,7 +1007,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/06/14/ciuwgxk7o003gsixkb9xihz4e/" itemprop="url">
+                <a class="post-title-link" href="/2015/06/14/ciwgbt2ax00289kxk0wdelbb1/" itemprop="url">
                   设计模式之迭代器模式(Iterator)
                 </a>
               
@@ -948,8 +1051,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/06/14/ciuwgxk7o003gsixkb9xihz4e/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/14/ciuwgxk7o003gsixkb9xihz4e/" itemprop="commentsCount"></span>
+                <a href="/2015/06/14/ciwgbt2ax00289kxk0wdelbb1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/14/ciwgbt2ax00289kxk0wdelbb1/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -975,7 +1078,7 @@
         
           <h3 id="迭代器模式定义："><a href="#迭代器模式定义：" class="headerlink" title="迭代器模式定义："></a>迭代器模式定义：</h3><p>提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/06/14/ciuwgxk7o003gsixkb9xihz4e/#more" rel="contents">
+            <a class="btn" href="/2015/06/14/ciwgbt2ax00289kxk0wdelbb1/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1026,7 +1129,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/06/11/ciuwgxk68001nsixkvnk5prz4/" itemprop="url">
+                <a class="post-title-link" href="/2015/06/11/ciwgbt2ai001m9kxkedf4cm5s/" itemprop="url">
                   设计模式之模板方法模式(Template Method)
                 </a>
               
@@ -1070,8 +1173,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/06/11/ciuwgxk68001nsixkvnk5prz4/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/11/ciuwgxk68001nsixkvnk5prz4/" itemprop="commentsCount"></span>
+                <a href="/2015/06/11/ciwgbt2ai001m9kxkedf4cm5s/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/11/ciwgbt2ai001m9kxkedf4cm5s/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1097,7 +1200,7 @@
         
           <h3 id="模板方法模式定义："><a href="#模板方法模式定义：" class="headerlink" title="模板方法模式定义："></a>模板方法模式定义：</h3><p>在一个方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/06/11/ciuwgxk68001nsixkvnk5prz4/#more" rel="contents">
+            <a class="btn" href="/2015/06/11/ciwgbt2ai001m9kxkedf4cm5s/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1148,7 +1251,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/06/08/ciuwgxk5y001dsixkshle79of/" itemprop="url">
+                <a class="post-title-link" href="/2015/06/08/ciwgbt2a900179kxkt5qcuq2k/" itemprop="url">
                   设计模式之外观模式(Facade)
                 </a>
               
@@ -1192,8 +1295,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/06/08/ciuwgxk5y001dsixkshle79of/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/08/ciuwgxk5y001dsixkshle79of/" itemprop="commentsCount"></span>
+                <a href="/2015/06/08/ciwgbt2a900179kxkt5qcuq2k/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/08/ciwgbt2a900179kxkt5qcuq2k/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1219,129 +1322,7 @@
         
           <h3 id="外观模式定义："><a href="#外观模式定义：" class="headerlink" title="外观模式定义："></a>外观模式定义：</h3><p>提供了一个统一的接口，用来访问子系统中的一群接口。外观定义了一个高层接口，让子系统更容易使用。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/06/08/ciuwgxk5y001dsixkshle79of/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/06/06/ciuwgxk6p0023sixk3k7ps3ko/" itemprop="url">
-                  设计模式之适配器模式(Adapter)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-06-06T12:37:32+08:00" content="2015-06-06">
-              2015-06-06
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/设计模式/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/06/06/ciuwgxk6p0023sixk3k7ps3ko/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/06/ciuwgxk6p0023sixk3k7ps3ko/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="适配器模式定义："><a href="#适配器模式定义：" class="headerlink" title="适配器模式定义："></a>适配器模式定义：</h3><p>将一个类的接口，转换成客户期望的另一个接口。适配器让原本接口不兼容的类可以合作无间。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/06/06/ciuwgxk6p0023sixk3k7ps3ko/#more" rel="contents">
+            <a class="btn" href="/2015/06/08/ciwgbt2a900179kxkt5qcuq2k/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1416,7 +1397,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
