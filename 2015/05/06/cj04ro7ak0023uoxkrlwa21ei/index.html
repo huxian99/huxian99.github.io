@@ -1,0 +1,815 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java,设计模式," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="装饰者模式定义：动态地将责任附加到对象上。想要扩展功能，装饰者提供有别于继承的另一种选择。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之装饰者模式(Decorator)">
+<meta property="og:url" content="http://yoursite.com/2015/05/06/cj04ro7ak0023uoxkrlwa21ei/index.html">
+<meta property="og:site_name" content="弧线">
+<meta property="og:description" content="装饰者模式定义：动态地将责任附加到对象上。想要扩展功能，装饰者提供有别于继承的另一种选择。">
+<meta property="og:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/Decorator.png">
+<meta property="og:updated_time" content="2016-07-18T15:50:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式之装饰者模式(Decorator)">
+<meta name="twitter:description" content="装饰者模式定义：动态地将责任附加到对象上。想要扩展功能，装饰者提供有别于继承的另一种选择。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/Decorator.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 10475303,
+      author: 'huxian99'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/05/06/cj04ro7ak0023uoxkrlwa21ei/"/>
+
+  <title> 设计模式之装饰者模式(Decorator) | 弧线 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">弧线</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                设计模式之装饰者模式(Decorator)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-05-06T21:03:52+08:00" content="2015-05-06">
+              2015-05-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/05/06/cj04ro7ak0023uoxkrlwa21ei/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/06/cj04ro7ak0023uoxkrlwa21ei/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="装饰者模式定义："><a href="#装饰者模式定义：" class="headerlink" title="装饰者模式定义："></a>装饰者模式定义：</h3><p>动态地将责任附加到对象上。想要扩展功能，装饰者提供有别于继承的另一种选择。<br><a id="more"></a></p>
+<h3 id="UML类图："><a href="#UML类图：" class="headerlink" title="UML类图："></a>UML类图：</h3><p><img src="https://raw.githubusercontent.com/huxian99/git/master/image/Decorator.png" alt="">  </p>
+<h3 id="使用场景："><a href="#使用场景：" class="headerlink" title="使用场景："></a>使用场景：</h3><ol>
+<li>需要扩展一个类的功能，或给一个类添加附加职责。  </li>
+<li>需要动态的给一个对象添加功能，而且还可以动态的撤销。(继承不能做到这一点，继承的功能是静态的，不能动态增删）  </li>
+<li>需要增加由一些基本功能的排列组合而产生的非常大量的功能，从而使继承关系变的不现实。  </li>
+</ol>
+<h3 id="优缺点："><a href="#优缺点：" class="headerlink" title="优缺点："></a>优缺点：</h3><p><code>优点：</code>  </p>
+<ol>
+<li>装饰者模式可以提供比继承更多的灵活性。  </li>
+<li>通过使用不同的具体装饰者类，我们可以创造出很多不同行为的组合。  </li>
+</ol>
+<p><code>缺点：</code>  </p>
+<ol>
+<li>设计中会出现许多相似的对象，如果过度使用，会使程序变得很复杂，不容易排错。  </li>
+<li>装饰模式是针对抽象组件（Component）类型编程。但是，如果你要针对具体组件编程时，就应该重新思考你的应用架构，以及装饰者是否合适。当然也可以改变Component接口，增加新的公开的行为，实现“半透明”的装饰者模式。在实际项目中要做出最佳选择。  </li>
+</ol>
+<h3 id="简单Demo："><a href="#简单Demo：" class="headerlink" title="简单Demo："></a>简单Demo：</h3><p>非诚勿扰节目组考虑将24位女嘉宾的坐标，性格/爱好显示给用户。为此他们打算设计一套系统，你看到了这个信息，心想着帮他们设计一下。于是赶紧写起了代码：</p>
+<pre><code>public abstract class Girl{
+    String description = &quot;no particular&quot;;
+    public String getDescription();
+}
+</code></pre><p>然后24个女嘉宾只需要继承这个抽象的Girl不就妥妥地ok了么。<br>看到一号女嘉宾是个很可爱的中国妹子:  </p>
+<pre><code>public class ChinaWithCute extends Girl {
+    public String getDescription() {
+        return &quot;Chinese girl cute&quot;;
+    }
+}
+</code></pre><p>看到二号女嘉宾是个很年轻的米国妹子:  </p>
+<pre><code>public class AmericaWithYoung extends Girl {
+    public String getDescription() {
+        return &quot;America girl young&quot;;
+    }
+}
+</code></pre><p>看到三号女嘉宾是个很善良的中国妹子:  </p>
+<pre><code>public class ChinaWithVirtuous extends Girl {
+    public String getDescription() {
+        return &quot;China girl virtuous&quot;;
+    }
+}
+</code></pre><p>看到四号女嘉宾，五号女嘉宾… 等等，这么说来要写24个妹子了！  </p>
+<p>旁边的小伙伴看到你在设计这个问题，于是略带嘲笑的问了问你：那如果一个女嘉宾走了，新来一个女嘉宾，你还要再实现一个妹子了？  </p>
+<p>聪明的你实在受不了自己这么糟糕的设计了，明明可以把这些性格/爱好抽象出来去装饰这些妹子么.  </p>
+<p><code>1. 妹子接口：</code>  </p>
+<pre><code>public interface Girl {
+    String description = &quot;no particular&quot;;
+    public String getDescription();
+}
+</code></pre><p><code>2. Concrete Component：</code>  </p>
+<pre><code>/**
+ * 中国妹子
+ */
+public class ChinaGirl implements Girl {
+
+    @Override
+    public String getDescription() {
+        return &quot;Chinese Girl&quot;;
+    }
+
+}
+
+/**
+ * 米国妹子
+ */
+public class AmericaGirl implements Girl {
+
+    @Override
+    public String getDescription() {
+        return &quot;American Girl&quot;;
+    }
+
+}
+</code></pre><p><code>3. 装饰性格/爱好的接口：</code>  </p>
+<pre><code>public interface GirlDecorator extends Girl {
+
+}
+</code></pre><p><code>4. Concrete Decorator：</code>  </p>
+<pre><code>/**
+ * 可爱的妹子
+ */
+public class Cute implements GirlDecorator {
+
+    private Girl girl;
+
+    public Cute(Girl girl) {
+        this.girl = girl;
+    }
+
+    @Override
+    public String getDescription() {
+        return girl.getDescription() + &quot; cute&quot;;
+    }
+
+}
+
+/**
+ * 孝顺的妹子
+ */
+public class Filial implements GirlDecorator {
+
+    private Girl girl;
+
+    public Filial(Girl girl) {
+        this.girl = girl;
+    }
+
+    @Override
+    public String getDescription() {
+        return girl.getDescription() + &quot; filial&quot;;
+    }
+
+}
+
+/**
+ * 善良的妹子
+ */
+public class Virtuous implements GirlDecorator {
+
+    private Girl girl;
+
+    public Virtuous(Girl girl) {
+        this.girl = girl;
+    }
+
+    @Override
+    public String getDescription() {
+        return girl.getDescription() + &quot; virtuous&quot;;
+    }
+
+}
+
+/**
+ * 年轻的妹子
+ */
+public class Young implements GirlDecorator {
+
+    private Girl girl;
+
+    public Young(Girl girl) {
+        this.girl = girl;
+    }
+
+    @Override
+    public String getDescription() {
+        return girl.getDescription() + &quot; young&quot;;
+    }
+
+}
+</code></pre><p><code>4. 客户端测试：</code>  </p>
+<pre><code>public class Test {
+
+    public static void main(String[] args) {
+        Girl china = new ChinaGirl();
+        china = new Cute(china);
+        china = new Filial(china);
+        System.out.println(china.getDescription());
+
+        Girl america = new AmericaGirl();
+        america = new Virtuous(america);
+        america = new Young(america);
+        System.out.println(america.getDescription());
+    }
+
+}
+</code></pre><p><code>result：</code><br>Chinese Girl cute filial<br>American Girl virtuous young  </p>
+<p>这时候新来了一个米国身材非常Hot的妹子，你可以动态地，更灵活的把她加入到你的系统中了吧。  </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+            <a href="/tags/设计模式/" rel="tag">#设计模式</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/01/cj04ro7al0026uoxk599td2j2/" rel="next" title="设计模式之观察者模式(Observer)">
+                <i class="fa fa-chevron-left"></i> 设计模式之观察者模式(Observer)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/05/21/cj04ro7ah001yuoxk5r27ikha/" rel="prev" title="设计模式之工厂模式(Factory)">
+                设计模式之工厂模式(Factory) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2015/05/06/cj04ro7ak0023uoxkrlwa21ei/"
+     data-title="设计模式之装饰者模式(Decorator)"
+     data-content=""
+     data-url="http://yoursite.com/2015/05/06/cj04ro7ak0023uoxkrlwa21ei/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/05/06/cj04ro7ak0023uoxkrlwa21ei/"
+           data-title="设计模式之装饰者模式(Decorator)" data-url="http://yoursite.com/2015/05/06/cj04ro7ak0023uoxkrlwa21ei/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars0.githubusercontent.com/u/7358058?v=3&s=460"
+               alt="huxian99" />
+          <p class="site-author-name" itemprop="name">huxian99</p>
+          <p class="site-description motion-element" itemprop="description">弧线，期待多一度精彩</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰者模式定义："><span class="nav-number">1.</span> <span class="nav-text">装饰者模式定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UML类图："><span class="nav-number">2.</span> <span class="nav-text">UML类图：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景："><span class="nav-number">3.</span> <span class="nav-text">使用场景：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优缺点："><span class="nav-number">4.</span> <span class="nav-text">优缺点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单Demo："><span class="nav-number">5.</span> <span class="nav-text">简单Demo：</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">huxian99</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"huxian99"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

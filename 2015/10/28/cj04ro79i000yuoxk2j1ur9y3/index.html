@@ -1,0 +1,728 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="RxJava," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="本系列文章主要翻译自O’Reilly出版的RxJava for Android App Development一书。第二章 RxJava in Your Android Code">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxJava的Android开发之路 RxJava实战 (二)">
+<meta property="og:url" content="http://yoursite.com/2015/10/28/cj04ro79i000yuoxk2j1ur9y3/index.html">
+<meta property="og:site_name" content="弧线">
+<meta property="og:description" content="本系列文章主要翻译自O’Reilly出版的RxJava for Android App Development一书。第二章 RxJava in Your Android Code">
+<meta property="og:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/rxjava-for-android-app-development-figure2-1.png">
+<meta property="og:updated_time" content="2016-07-18T14:55:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RxJava的Android开发之路 RxJava实战 (二)">
+<meta name="twitter:description" content="本系列文章主要翻译自O’Reilly出版的RxJava for Android App Development一书。第二章 RxJava in Your Android Code">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/huxian99/git/master/image/rxjava-for-android-app-development-figure2-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 10475303,
+      author: 'huxian99'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/10/28/cj04ro79i000yuoxk2j1ur9y3/"/>
+
+  <title> RxJava的Android开发之路 RxJava实战 (二) | 弧线 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">弧线</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                RxJava的Android开发之路 RxJava实战 (二)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-10-28T22:35:49+08:00" content="2015-10-28">
+              2015-10-28
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/10/28/cj04ro79i000yuoxk2j1ur9y3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/28/cj04ro79i000yuoxk2j1ur9y3/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本系列文章主要翻译自O’Reilly出版的RxJava for Android App Development一书。<br>第二章 RxJava in Your Android Code<br><a id="more"></a>  </p>
+<blockquote>
+<p>We haven’t used Otto [an Android-focused event bus library] in a year and a half, if not more… We think we found a better mechanism. That mechanism is…RXJava where we can create a much more specific pipeline of events than a giant generic bus that just shoves any event across it            -Jake Wharton</p>
+</blockquote>
+<p>RxJava是一个非常强大的库。RxJava在Android应用开发的很多情景中提供了一个更清晰，更灵活的实现方式。在这一章节中，我会尽力说服你为什么你应该考虑在你的Android开发中使用RxJava。</p>
+<p>首先，RxJava能有效地安全地加载异步数据，即使在把数据加载进我们不能控制其生命周期的对象的情况下(比如Activitys, Fragments等等)。其次，对于我们HackerNews客户端例子中的搜索来说，我会比较基于RxJava的实现和AsyncTasks, Handlers和Listeners的实现，我会试着说一些基于RxJava实现的优势。</p>
+<h2 id="RxJava-and-Activity-Lifecycle"><a href="#RxJava-and-Activity-Lifecycle" class="headerlink" title="RxJava and Activity Lifecycle"></a>RxJava and Activity Lifecycle</h2><p>我们不能完全地控制我们的应用中Activitys的生命周期。最终，Android framework会对创建和销毁Activitys负责。例如，如果用户旋转了设备，当前在屏幕上的Activity可能被销毁并被重新创建，为设备新的方向加载适当地布局。</p>
+<p>Android framework要求任何有效的异步数据加载解决方案需要有两个属性。首先，它必须能通知Activity完成数据加载操作不会导致Activity的泄漏。其次，如果仅仅是配置的改变，它不应该强制要求开发者重新查询数据源。当然啦，在配置改变之后，它应该持有并且传递数据加载操作的结果给重新创建的Activity。在本节内容中，如果RxJava被正确地使用，它会有这两个属性，在Android的应用开发中它会成为一个有效的数据加载解决方案。</p>
+<h3 id="Avoiding-Memory-Leaks"><a href="#Avoiding-Memory-Leaks" class="headerlink" title="Avoiding Memory Leaks"></a>Avoiding Memory Leaks</h3><p>为了避免泄露Activity,我们必须确保异步数据加载操作完成时通知Activity的对象不能:<br>a) 存活的比Activity时间长<br>b) 持有Activity的强引用<br>如果这两个条件都满足，那么加载数据的对象可能会导致Activity的泄露。在资源紧张的手机设备上内存泄露是非常严重的问题，它能很容易的导致内存溢出进而crash掉我们的应用。</p>
+<p>我们使用RxJava开发Android应用时，在Activity的onDestroy()方法被调用之后，通过确保发射异步数据的Observables不持有Activity的强引用，避免了内存泄露。RxJava有几个帮助我们做这些事的特性。</p>
+<p>调用Observable.subscribe()方法会返回一个Subscription。Subscription作为发射数据的Observable和消费数据的Observer的连接。更确切地说，由Observable.subscribe()方法返回的Subscription描述了Observable接收subscribe()的消息和subscribe()方法的参数Observer之间的连接。Subscriptions提供了Subscription.unsubscribe()方法来断开这个连接。</p>
+<p>在Observable生命周期比Observer长的情况下，由于Observable在一个单独的线程发射数据，调用Subscription.unsubscribe()方法清除Observable对Observer的引用，它们之间的连接是由Subscription对象描述的。这样，当Observer是Activity或者是隐式地持有外部类Activity引用的匿名内部类时，在Activity的onDestroy()方法中调用unsubscribe()方法，会阻止泄露的发生。看起来像这样：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    mSubscription = hackerNewsStoriesObservable.subscribe(<span class="keyword">new</span> Observer() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(Story story)</span> </span>&#123;</span><br><span class="line">            Log.d(TAG, story);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    mSubscription.unsubscribe();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果一个Activity有多个Observables，调用Observable.subscribe()返回的多个Subscriptions能被添加到CompositeSubscription中。这个CompositeSubscription的unsubscribe()方法会解订阅所有已经添加到它上面和未来可能会添加到它上面的Subscriptions。忘记前面能引起bug的最后一部分吧，因为它是值得重复的：如果你调用了CompositeSubscription的unsubscribe()方法，被添加到CompositeSubscription上的任何Subscriptions也能unsubscribe.</p>
+<p>调用Subscription.unsubscribe()方法，然而，并不确保你的Activity不会泄露。如果你使用匿名的或者非静态的内部Observable.OnSubscribe函数对象创建Observable，会隐式地持有你的Activity的引用，如果Observable.OnSubscribe函数对象存活的比你的Activity更长，将会在它调用了onDestroy()方法之后阻止Activity被GC回收。</p>
+<p>例如，之前章节中描述Observable是如何发射HackerNews故事的数据的那段代码，如果运行在Activity里面，可能会导致内存泄露：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Observable.create(<span class="keyword">new</span> Observable.OnSubscribe() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(Subscriber&lt;Story&gt; subscriber)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!subscriber.isUnsubscribed()) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Story topStory = hackerNewsRestAdapter.getTopStory(); <span class="comment">//3</span></span><br><span class="line">                subscriber.onNext(topStory);</span><br><span class="line">                Story newestStory = hackerNewsRestAdapter.getNewestStory();</span><br><span class="line">                subscriber.onNext(newestStory);</span><br><span class="line">                subscriber.onComplete();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (JsonParseException e) &#123;</span><br><span class="line">                subscriber.onError(e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">.subscribeOn(Schedulers.io());</span><br></pre></td></tr></table></figure></p>
+<p>call()方法内正运行在I/O线程上的代码。会阻塞在像HackerNewsRestAdapter.getTopStory()这样的方法，不用担心会阻塞UI线程。我们想象一下，这段代码正在I/O线程上运行，但随后用户关掉了想要消费由这个Observable发射数据的Activity。</p>
+<p>在这里，正在call()方法里面运行的代码是GC-root，被正在运行的代码块所引用的对象没有一个能被垃圾回收。因为Observable.OnSubscribe函数对象隐式地持有外部Activity的引用，这个Activity就只有等到call()方法完成才能被垃圾回收。这种情景要尽量的避免，要确保Observable.OnSubscribe()对象是一个类实例，不显式或者隐式地持有你的Activity。</p>
+<h3 id="Avoiding-Re-querying-for-Data-Upon-Configuration-Changes"><a href="#Avoiding-Re-querying-for-Data-Upon-Configuration-Changes" class="headerlink" title="Avoiding Re-querying for Data Upon Configuration Changes"></a>Avoiding Re-querying for Data Upon Configuration Changes</h3><p>查询数据源通常是一个比较昂贵的操作。因此，Android SDK有一些类帮助开发者避免由于配置的改变，重新查询数据源：Loader和LoaderManager。这些类帮助我们避免了问题。然而RxJava提供给我们一个更清晰，更灵活的处理异步数据的方法，也提供给我们一个重新查询问题的解决方案。  </p>
+<p>用RxJava解决重复查询的问题至少有两种方法。第一种方法，我们创建Observables并用Loader类取异步数据。这是在我的<a href="http://www.philosophicalhacker.com/2015/07/17/making-a-tdd-based-hackernews-client-for-android/" target="_blank" rel="external">TDD-based HackerNews client</a>中用到的的方法。第二种解决重复查询问题的方法是:<br>a) 确保Observables幸免于配置的改变<br>b) 使用cache或者replay操作符让这些Observables给未来的Observers发射相同的数据<br>这个方法是Dan Lew的<a href="http://blog.danlew.net/2014/10/08/grokking-rxjava-part-4/" target="_blank" rel="external">博客</a>中的建议。</p>
+<h3 id="Using-cache-or-replay-with-Observables-that-Survive-Configuration-Changes"><a href="#Using-cache-or-replay-with-Observables-that-Survive-Configuration-Changes" class="headerlink" title="Using cache or replay with Observables that Survive Configuration Changes"></a>Using cache or replay with Observables that Survive Configuration Changes</h3><p>让我们开始检查Dan Lew建议的方法。Observable发射的数据必须能幸免于配置的改变。如果Observable被垃圾回收掉了或者作为配置改变的结果变的不可达了，重新创建的Activity创建了新的Observable，不得不执行相同的数据加载操作，他需要执行属于他的责任。  </p>
+<p>确保Observable幸免于方向的改变至少有两种方法。第一个方法是把Observable放在一个retained Fragment中(fragment的setRetainInstance(true))。第二个方法是放在单例中。  </p>
+<p>只要Observable能幸免于Activity配置的改变，RxJava提供了几个操作符能把我们从不得不重新查询数据中救起：cache和replay操作符。这两个操作符都能确保订阅了Observable的Observers在Observable发射了数据之后，仍然能看到相同的数据顺序。  </p>
+<p>重新发送给将来的Observers的数据，是被包含在Observable最开始的数据流里面而不是重新查询数据源。相反，被发射的数据是被缓存在内存中并依靠cache和replay操作符简单地发射缓存数据给将来订阅Observable的Observers。  </p>
+<p>因为cache和replay操作符修改了Observable的行为，当Activity由于配置改变而销毁时，Observable能解订阅。Observers能重新订阅相同的Observable，不用担心它丢掉了任何最初的异步数据流中的数据，尽管它被重新创建并且Observable没有重新查询数据源。  </p>
+<h3 id="Building-Observables-on-Top-of-Loaders"><a href="#Building-Observables-on-Top-of-Loaders" class="headerlink" title="Building Observables on Top of Loaders"></a>Building Observables on Top of Loaders</h3><p>正如之前所介绍的，使用RxJava还有另外一种方法，不会因为配置的改变而重新加载数据。由于Observables创建的灵活性，我们能很容易地创建Observables并使用Loaders去获取数据，然后发射给它的Observers。可能像下面这样：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">LoaderInitOnSubscribe</span> <span class="keyword">implements</span> <span class="title">Observable</span>.<span class="title">OnSubscribe</span>&lt;<span class="title">Story</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(<span class="keyword">final</span> Subscriber&lt;? <span class="keyword">super</span> Story&gt; subscriber)</span> </span>&#123;</span><br><span class="line">        mLoaderManager.initLoader(LOADER_ID, mLoaderArgs, <span class="keyword">new</span> LoaderCallbacks&lt;Story&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Loader&lt;Story&gt; <span class="title">onCreateLoader</span><span class="params">(<span class="keyword">int</span> id, Bundle args)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> StoryLoader(mContext);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onLoadFinished</span><span class="params">(Loader&lt;Story&gt; loader, Story data)</span> </span>&#123;</span><br><span class="line">                subscriber.onNext(data);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onLoaderReset</span><span class="params">(Loader&lt;Story&gt; loader)</span> </span>&#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Observables能通过Observable.OnSubscribe函数对象创建。因此，LoaderInitOnSubscribe能被传递进Observable.create()中。一旦Observable开始发射它的数据，它将会使用LoaderManager和StoryLoader去加载数据并将数据发射给对它感兴趣的Observers。</p>
+<p>Loaders幸免于配置的改变，如果它们已经加载了数据，在配置改变之后他们能传递数据给重新创建的Activity。这样，创建一个Observable简单地发射由Loader加载的数据是确保Activitys在配置改变后不需要重新查询数据源的一个简单方法。</p>
+<p>读到这里，一些读者可能会很好奇，如果Loader和LoaderManager是干了全部脏活累活的类，那么在一个Observable里简单的封装这些脏活累活有什么优势呢？ 一般地说，读者可能会好奇当我们有Android SDK提供给我们的解决方案时，为什么应该优先选择处理异步数据加载的基于RxJava的解决方案呢。  </p>
+<p>下一部分我会回答这个更普遍的问题。此外，我还会回答读者为什么我们可以从一个简单的封装了Loaders和LoaderManagers的Observable中加载Activity数据的问题。因此，让我们把目光转移到为什么基于RxJava的解决方案提供给我们一个更简洁的处理异步数据加载的方法。  </p>
+<h2 id="Why-RxJava-based-Solutions-Are-Awesome"><a href="#Why-RxJava-based-Solutions-Are-Awesome" class="headerlink" title="Why RxJava-based Solutions Are Awesome"></a>Why RxJava-based Solutions Are Awesome</h2><p>为了看清楚为什么基于RxJava的解决方案比传统的处理异步数据的方法更简洁，考虑下面的这个情景。假设HackerNews app有一个SearchView，看起来像Figure2-1: </p>
+<p><img src="https://raw.githubusercontent.com/huxian99/git/master/image/rxjava-for-android-app-development-figure2-1.png" alt="">  </p>
+<p>当用户在search widget中键入数据时，app应该请求API去获取并显示匹配键入搜索字符串的故事。<br>然而调用API，app应该至少满足<br>a) 查询字符串至少是三个字符<br>b) 用户键入最后的字符时，至少有100毫秒的延迟</p>
+<p>实现这个需求会牵涉Listeners，Handlers，和AsyncTasks的使用。这三个组件一起组成了Android SDK标准的处理异步数据的工具包。<br>在这一部分，对于之前的搜索需求，我会比较标准的使用这些组件的解决方案和基于RxJava的解决方案。</p>
+<p>标准的实现可能会这样开始：<br>    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {</p>
+<pre><code>    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String queryText) {
+        if (queryText.length() &gt; 2) { //2
+            Message message = Message.obtain(mHandler, MESSAGE_QUERY_UPDATE, queryText); //3
+            mHandler.sendMessageDelayed(message,QUERY_UPDATE_DELAY_MILLIS);
+        }
+        mHandler.removeMessages(MESSAGE_QUERY_UPDATE); //4
+        return true;
+    }
+});
+</code></pre><ol>
+<li>我们设置SearchView一个Listener，用来通知我们用户键入字符串的改变。  </li>
+<li>Listener检查用户已经键入了多少个字符。如果少于三个字符，Listener什么都不做。  </li>
+<li>如果超过了三个字符(含三个字符)，Listener使用Handler在延迟100毫秒后安排一个新的API请求。  </li>
+<li>我们移除挂起的请求。有效地确保API请求在查询字符串改变之间有100毫秒的延迟。  </li>
+</ol>
+<p>Handler响应MESSAGE_QUERY_UPDATE消息的代码如下：  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Handler mHandler = <span class="keyword">new</span> Handler() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (msg.what == MESSAGE_QUERY_UPDATE) &#123;</span><br><span class="line">            String query = (String) msg.obj;</span><br><span class="line">            mSearchStoriesAsyncTask = <span class="keyword">new</span> SearchStoriesAsyncTask(mStoriesRecyclerView, mHackerNewsRestAdapter);</span><br><span class="line">            mSearchStoriesAsyncTask.execute(query);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>AsyncTask请求API并更新列表的代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SearchStoriesAsyncTask</span> <span class="keyword">extends</span> <span class="title">AsyncTask</span>&lt;<span class="title">String</span>, <span class="title">Void</span>, <span class="title">List</span>&lt;<span class="title">Story</span>&gt;&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> RecyclerView mStoriesRecyclerView;</span><br><span class="line">    <span class="keyword">private</span> HackerNewsRestAdapter mHackerNewsRestAdapter;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SearchStoriesAsyncTask</span><span class="params">(RecyclerView storiesRecyclerView, HackerNewsRestAdapter hackerNewsRestAdapter)</span> </span>&#123;</span><br><span class="line">        mStoriesRecyclerView = storiesRecyclerView;</span><br><span class="line">        mHackerNewsRestAdapter = hackerNewsRestAdapter;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> List&lt;Story&gt; <span class="title">doInBackground</span><span class="params">(String... params)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mHackerNewsRestAdapter.searchStories(params[<span class="number">0</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onPostExecute</span><span class="params">(List&lt;Story&gt; stories)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onPostExecute(stories);</span><br><span class="line">        mStoriesRecyclerView.setAdapter(<span class="keyword">new</span> StoryAdapter(stories));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是在你看过了基于RxJava的解决方案后，你会觉得它比使用Listeners, Handlers, 和AsyncTasks这种方法更简洁，更灵活。<br>基于RxJava实现的方案如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">searchViewTextObservable.filter(<span class="keyword">new</span> Func1&lt;String, Boolean&gt;() &#123;</span><br><span class="line">    <span class="comment">//1</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">call</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> s.length() &gt; <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">.debounce(QUERY_UPDATE_DELAY_MILLIS, TimeUnit.MILLISECONDS)  <span class="comment">// 2</span></span><br><span class="line">.flatMap(<span class="keyword">new</span> Func1&lt;String, Observable&lt;List&lt;Story&gt;&gt;&gt;() &#123;   <span class="comment">// 3</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Observable&lt;List&lt;Story&gt;&gt; call(String s) &#123;</span><br><span class="line">        <span class="keyword">return</span> mHackerNewsRestAdapter.getSearchStoriesObservable(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">.subscribeOn(Schedulers.io())</span><br><span class="line">.observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">.subscribe(<span class="keyword">new</span> Observer&lt;List&lt;Story&gt;&gt;() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(List&lt;Story&gt; stories)</span> </span>&#123;</span><br><span class="line">        mStoriesRecyclerView.setAdapter(<span class="keyword">new</span> StoryAdapter(stories));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>在我说为什么这种实现是更简洁的之前，让我们准确地理解一下发生了什么：</p>
+<ol>
+<li>首先，我们应用了filter操作符。如果源Observable发射的数据通过了Func1对象过滤之后，这个操作符会创建一个Observable继续发射源Observable中的数据。在这种情况下，由filter操作符返回的Observable仅仅发射SearchView键入字符串的长度大于两个字符长度的情况。</li>
+<li>其次，我们应用了debounce操作符。如果满足了两次发射间隔有一个足够的延迟，这个操作符会创建一个Observable继续发射它的源Observable中的数据。在这种情况下，由debounce操作符返回的Observable会发射延迟了100毫秒之后的SearchView中的字符串。</li>
+<li>最后，flatMap操作符创建的Observable跳出了源Observable的发射。传递进这个操作符的Func1对象描述了一个功能，创建一个由源Observable发射一个单一的item的Observable。在这种情况下，被创建的Observable发射通过查询字符串调用API搜索到HackerNews故事的结果。  </li>
+</ol>
+<p>现在我们对上面的代码有了一个基本的理解，让我简短地说下为什么我认为这种实现是更简洁的。  </p>
+<p>首先，标准的解决方案相比于基于RxJava的解决方案显得更啰嗦。在所有其他因素相同的情况下，一个解决方案有更少的代码量，会显得更简洁。  </p>
+<p>其次，基于RxJava的解决方案也集中了所有的代码。相比于在Handler和AsyncTask类定义中去实现搜索功能，开发者能把代码聚焦在一个地方。事实上，代码中使用操作符在函数式编程范式中已经有很成熟的意义，它可以使得代码更容易理解。  </p>
+<p>最后，基于RxJava的解决方案，错误的处理也是非常直观的：Observers仅仅接收一个onError()调用。标准的使用AsyncTask实现的方法，另一方面，并不是那么直观的，是”out of the box”方式处理错误。  </p>
+<p>基于RxJava的实现也比标准实现更灵活。AsyncTasks必须在后台线程执行他们的任务并且在主线程执行onPostExecute()方法。Handlers必须在他们被创建的线程执行他们的任务。RxJava，通过Schedulers线程调度器，给了我们创建和消费异步数据更多的控制。  </p>
+<p>这个控制允许我们使用Observables公开通过网络加载的异步数据流和通过用户和SearchView交互创建文本改变的异步数据流。如果不用RxJava，我们被强制地使用AsyncTask处理加载网络数据，Handler处理文本的改变。而且，由于这两个对象的不同，会阻止我们像使用RxJava的flatMap操作符那样把两个流组合在一起。  </p>
+<p>因为Observables可以有多个Observers，所以使用RxJava去实现搜索功能也使得他更容易的”插进”另一个的对搜索事件感兴趣的对象。为了看得更清晰，让我们改变一下我们的需求。  </p>
+<p>用户打算搜索故事，我们的HackerNews客户端要从用户的<code>搜索历史</code>中给出一个建议。用户按下了一个最近的搜索语句，我们想要app针对查询语句执行搜索操作。这个新需求执行搜索有两种情况，1.用户键入至少有三个字符且在100毫秒之后没有字符被改变 2.用户轻按了一个搜索历史中的字符串。现在，我们想要通过追踪分析他们的使用情况来检测这些基于历史的搜索建议对我们的用户是多么的有用。  </p>
+<p>在这种情况下，当有搜索结果被返回时，我们仍然想要我们的故事列表被更新。我们需要去改变的唯一的事情是执行搜索的条件。为此，我们需要一个发射搜索历史中查询字符串的Observable。一旦我们有了这个Observable，我们能通过在操作符链中添加额外的”link”来把它组合进我们的数据流中：  </p>
+<pre><code>searchViewTextObservable.filter(new Func1&lt;String, Boolean&gt;() {
+    //...
+})
+.debounce(QUERY_UPDATE_DELAY_MILLIS, TimeUnit.MILLISECONDS)
+.mergeWith(historicalQueryTappedObservable)
+.flatMap(new Func1&lt;String, Observable&lt;List&lt;Story&gt;&gt;&gt;() {
+    // Returns Observable that represents the async data returned from a network call
+})
+.subscribeOn(Schedulers.io())
+.observeOn(AndroidSchedulers.mainThread())
+.subscribe(new Observer&lt;List&lt;Story&gt;&gt;() {
+    // ...
+});
+</code></pre><p>操作符mergeWith，顾名思义，返回一个Observable发射组合了它的源Observable数据和被传递进mergeWith操作符的Observable数据。在这种情况下，返回的Observable将要发射一个字符串，要么是搜索历史中的查询字符串，要么是用户键入SearchView的查询字符串。这两个字符串中的一个将要触发网络请求去执行搜索。</p>
+<p>下一个需要我们去实现的是追踪分析搜索历史推荐的使用。我们已经有一个Observable发射搜索历史建议的字符串，那么很自然的方法是，有另一个Observer订阅这个Observable来记录使用，就像清风拂山岗。  </p>
+<p>为了添加多个Observers到一个Observable数据中，我们需要使用publish操作符。publish操作符创建了一个ConnectableObservable，它被订阅时并不开始发射数据。更确切的说，由publish操作符返回的ConnectableObservable在调用了ConnectableObservable.connect()之后才发射它的数据。在ConnectableObservable真正开始发射任何数据之前, 允许所有感兴趣的Observers去订阅一个它。  </p>
+<blockquote>
+<p>Hot Versus Cold Observables<br>当我们应用publish操作符并且调用由它返回的ConnectableObservable的connect()方法时，我们正从一个”冷”Observable转变成一个”热”Observable。一个冷Observable仅仅在调用了Observable.subscribe()后发射数据。”热”Observbale，另一方面来说，即使没有人订阅它，它也可能发射数据。在这篇报告的总结部分，我建议一些文章进一步地说清楚热和冷Observables之间的区别。  </p>
+</blockquote>
+<p>我们可以利用publish操作符来确保我们的分析被打印，我们的列表被更新：  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">historicalQueryTappedConnectableObservable = historicalQueryTappedObservable.publish()</span><br><span class="line"></span><br><span class="line">searchViewTextObservable.filter(<span class="keyword">new</span> Func1&lt;String, Boolean&gt;() &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">.mergeWith(historicalQueryTappedConnectableObservable)</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">.subscribe(<span class="keyword">new</span> Observer&lt;List&lt;Story&gt;&gt;() &#123;</span><br><span class="line">    <span class="comment">// Update list</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">historicalQueryTappedConnectableObservable.subscribe(<span class="keyword">new</span> Observer&lt;String&gt;() &#123;</span><br><span class="line">    <span class="comment">//Log tap for analytics</span></span><br><span class="line">&#125;);</span><br><span class="line">historicalQueryTappedConnectableObservable.connect();</span><br></pre></td></tr></table></figure>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>在本文中，你看到了为什么你应该考虑在你的Android代码中使用RxJava。RxJava对任何有效的异步数据加载解决方案有两个属性。它能把异步数据加载进Activity中  </p>
+<ol>
+<li>不会泄漏Activity  </li>
+<li>不会由于配置的改变强制要求开发者重新查询数据源<br>我也比较了对异步数据的处理使用标准类的实现和基于RxJava的实现，也尝试着说了一些为什么基于RxJava的实现通常是比标准的实现更简洁的，更灵活的原因。  </li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RxJava/" rel="tag">#RxJava</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/24/cj04ro79f000wuoxk86miwtw2/" rel="next" title="RxJava的Android开发之路 RxJava入门(一)">
+                <i class="fa fa-chevron-left"></i> RxJava的Android开发之路 RxJava入门(一)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/29/cj04ro797000ruoxk7jmjxr1w/" rel="prev" title="RxJava的Android开发之路 RxJava未来(三)">
+                RxJava的Android开发之路 RxJava未来(三) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2015/10/28/cj04ro79i000yuoxk2j1ur9y3/"
+     data-title="RxJava的Android开发之路 RxJava实战 (二)"
+     data-content=""
+     data-url="http://yoursite.com/2015/10/28/cj04ro79i000yuoxk2j1ur9y3/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/10/28/cj04ro79i000yuoxk2j1ur9y3/"
+           data-title="RxJava的Android开发之路 RxJava实战 (二)" data-url="http://yoursite.com/2015/10/28/cj04ro79i000yuoxk2j1ur9y3/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars0.githubusercontent.com/u/7358058?v=3&s=460"
+               alt="huxian99" />
+          <p class="site-author-name" itemprop="name">huxian99</p>
+          <p class="site-description motion-element" itemprop="description">弧线，期待多一度精彩</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RxJava-and-Activity-Lifecycle"><span class="nav-number">1.</span> <span class="nav-text">RxJava and Activity Lifecycle</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Avoiding-Memory-Leaks"><span class="nav-number">1.1.</span> <span class="nav-text">Avoiding Memory Leaks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Avoiding-Re-querying-for-Data-Upon-Configuration-Changes"><span class="nav-number">1.2.</span> <span class="nav-text">Avoiding Re-querying for Data Upon Configuration Changes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-cache-or-replay-with-Observables-that-Survive-Configuration-Changes"><span class="nav-number">1.3.</span> <span class="nav-text">Using cache or replay with Observables that Survive Configuration Changes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Building-Observables-on-Top-of-Loaders"><span class="nav-number">1.4.</span> <span class="nav-text">Building Observables on Top of Loaders</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-RxJava-based-Solutions-Are-Awesome"><span class="nav-number">2.</span> <span class="nav-text">Why RxJava-based Solutions Are Awesome</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">3.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">huxian99</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"huxian99"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
